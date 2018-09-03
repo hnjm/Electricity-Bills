@@ -12,11 +12,12 @@ namespace DAL.Models
 
         public int Id { get; set; }
         public string CustomerName { get; set; }
+        public string CustomerMobile { get; set; }
         public int? LineId { get; set; }
         public int? CounterNumber { get; set; }
         public decimal? LastBalance { get; set; }
         public long? LastRead { get; set; }
-        public bool? CustomerStatu { get; set; }
+        public bool? CustomerStatue { get; set; }
 
         public Line Line { get; set; }
         public ICollection<CounterReads> CounterReads { get; set; }

@@ -4,11 +4,180 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:models="clr-namespace:DAL.Models;assembly=DAL"
         mc:Ignorable="d"
         Style="{StaticResource BasicWindowStyle}"
         Title="الزبائن" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <DockPanel>
+        <DockPanel.DataContext>
+            <models:Customer />
+        </DockPanel.DataContext>
+
+        <!--القائمة العلوية-->
+        <materialDesign:Card DockPanel.Dock="Top"
+                             VerticalAlignment="Top"
+                             Height="100"
+                             Margin="10">
+
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        Margin="10">
+
+                <TextBox x:Name="TxtCustomerSearch"
+                         Width="250"
+                         TextChanged="TxtCustomerSearch_OnTextChanged"
+                         VerticalAlignment="Center"
+                         HorizontalContentAlignment="Left"
+                         materialDesign:HintAssist.Hint="البحث بإسم الزبون ........"
+                         materialDesign:HintAssist.IsFloating="True" />
+
+
+            </StackPanel>
+
+        </materialDesign:Card>
+
+
+        <mah:Flyout x:Name="Fly"
+                         DockPanel.Dock="Bottom"
+                         materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                         Background="DodgerBlue"
+                         VerticalContentAlignment="Center"
+                         HorizontalContentAlignment="Center"
+                         AutoCloseInterval="3000"
+                         IsAutoCloseEnabled="True"
+                         IsOpen="False">
+            <TextBlock x:Name="TxtMessage"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Height="60" Margin="0,-45,0,0"
+                       Foreground="{DynamicResource MaterialDesignDarkForeground}" />
+
+        </mah:Flyout>
+
+
+        <materialDesign:Card
+            DockPanel.Dock="Bottom"
+            Margin="0 10"
+            VerticalAlignment="Bottom"
+            Height="80">
+            <StackPanel
+                HorizontalAlignment="Center"
+                Orientation="Horizontal"
+                Margin="10 0 0 0">
+                <Button x:Name="BtnNew"
+                        Click="BtnNew_OnClick"
+                        Width="80"
+                        ToolTip="جديد">
+                    <materialDesign:PackIcon Width="25" Height="25" Kind="Refresh" />
+                </Button>
+
+                <Button x:Name="BtnSave"
+                        Click="BtnSave_OnClick"
+                        Margin="15 0 0 0"
+                        Width="80"
+                        ToolTip="حفظ">
+                    <materialDesign:PackIcon Width="25" Height="25" Kind="ContentSave" />
+                </Button>
+
+                <Button x:Name="BtnDelet"
+                        Click="BtnDelet_OnClick"
+                        Margin="15 0 0 0"
+                        Width="80"
+                        ToolTip="حذف">
+                    <materialDesign:PackIcon Width="25" Height="25" Kind="Delete" />
+                </Button>
+
+            </StackPanel>
+
+        </materialDesign:Card>
+
+        <!--القائمة اليمنى-->
+        <StackPanel
+            x:Name="StackItems"
+            DockPanel.Dock="Left"
+            Width="300"
+            Margin="10"
+            HorizontalAlignment="Left">
+
+
+            <TextBox x:Name="TxtName"
+                     Text="{Binding CustomerName}"
+                     materialDesign:HintAssist.Hint="إسم الزبون"
+                     materialDesign:HintAssist.IsFloating="True" />
+            <ComboBox x:Name="TxtLine"
+                     Text="{Binding LineId}"
+                     Margin="0 10 0 0"
+                     materialDesign:HintAssist.Hint="نوع الاشتراك"
+                     materialDesign:HintAssist.IsFloating="True" />
+
+            <TextBox x:Name="TxtMobile"
+                     Text="{Binding CustomerMobile}"
+                     Margin="0 10 0 0"
+                     materialDesign:HintAssist.Hint="رقم الموبايل"
+                     materialDesign:HintAssist.IsFloating="True" />
+
+            <ComboBox
+                x:Name="MyComboBox"
+                Width="150"
+                HorizontalAlignment="Left"
+                DisplayMemberPath="CustomerTypeName"
+                IsEditable="True"
+                Margin="0 10 0 0"
+                materialDesign:HintAssist.Hint="تصنيف الموظف"
+                materialDesign:HintAssist.IsFloating="True"
+                SelectedValue="{Binding CustomerTypeId , Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}"
+                SelectedValuePath="Id" />
+        </StackPanel>
+
+
+        <DataGrid x:Name="CustomerDataGrid"
+                  Margin="10"
+                  SelectionChanged="CustomerDataGrid_OnSelectionChanged"
+                  CanUserAddRows="False"
+                  GridLinesVisibility="All"
+                  BorderBrush="Azure"
+                  BorderThickness="1"
+                  VerticalGridLinesBrush="Azure"
+                  HorizontalGridLinesBrush="Azure"
+                  RowDetailsVisibilityMode="VisibleWhenSelected"
+                  ItemsSource="{Binding}"
+                  EnableRowVirtualization="True"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn MaxWidth="0" Header="Id" Binding="{Binding Id}" />
+                <DataGridTextColumn Width="350" Header="إسم الزبون" Binding="{Binding CustomerName}"
+                                    CellStyle="{StaticResource LeftCellAligned}" />
+                <DataGridTextColumn Width="250" Header="نوع الخط" Binding="{Binding Line.LineName}"
+                                    CellStyle="{StaticResource CenterCellAligned}" />
+                <DataGridTextColumn Width="220" Header="الهاتف" Binding="{Binding CounterNumber}"
+                                    CellStyle="{StaticResource CenterCellAligned}" />
+                <DataGridTextColumn Width="220" Header="الموبايل" Binding="{Binding CustomerMobile}"
+                                    CellStyle="{StaticResource CenterCellAligned}" />
+                <DataGridTextColumn Width="*" Header="آخر قراءة" Binding="{Binding LastRead}"
+                                    CellStyle="{StaticResource CenterCellAligned}" />
+                <DataGridTextColumn Width="*" Header="متأخرات" Binding="{Binding LastBalance}"
+                                    CellStyle="{StaticResource CenterCellAligned}" />
+                <DataGridCheckBoxColumn Width="*" Header="الحالة" Binding="{Binding CustomerStatue}"
+                                    CellStyle="{StaticResource CenterCellAligned}" />
+
+
+                <DataGridTemplateColumn Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="BtnOpeningBalance"
+                                    Click="BtnOpeningBalance_OnClick"
+                                    ToolTip="الأرصدة الإفتتاحية">
+                                <materialDesign:PackIcon
+                                    Kind="WindowOpen"
+                                    Height="24"
+                                    Width="24" />
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
 </mah:MetroWindow>
 
