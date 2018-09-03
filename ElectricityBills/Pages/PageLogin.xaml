@@ -1,0 +1,78 @@
+﻿<mah:MetroWindow
+    x:Class="ElectricityBills.Pages.PageLogin"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ElectricityBills.Pages"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="700"
+    Height="300"
+    mc:Ignorable="d"
+    Style="{StaticResource BasicWindowStyle}"
+    Title="شاشة الدخول"
+    WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <materialDesign:PackIcon
+                Grid.Row="0"
+                Grid.Column="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Foreground="{Binding ElementName=NameTextBox, Path=BorderBrush}"
+                Kind="Account" />
+            <TextBox
+                x:Name="NameTextBox"
+                Grid.Row="0"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                HorizontalContentAlignment="Center"
+                materialDesign:HintAssist.Hint="إسم المستخدم"
+                materialDesign:HintAssist.IsFloating="True" />
+            <materialDesign:PackIcon
+                Grid.Row="1"
+                Grid.Column="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Foreground="{Binding ElementName=FloatingPasswordBox, Path=BorderBrush}"
+                Kind="Key" />
+            <PasswordBox
+                x:Name="FloatingPasswordBox"
+                Grid.Row="1"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                HorizontalContentAlignment="Center"
+                materialDesign:HintAssist.Hint="كلمة المرور"
+                Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
+            <Button
+                Grid.Row="2"
+                Grid.Column="1"
+                Width="300"
+                HorizontalAlignment="Center"
+                Click="BtnLogin_OnClick"
+                Content="تسجيل الدخول"
+                IsDefault="True"
+                Name="BtnLogin" />
+        </Grid>
+        <mah:RevealImage Grid.Column="1">
+            <Image Source="../Resources/emp.jpg" />
+        </mah:RevealImage>
+    </Grid>
+
+</mah:MetroWindow>
+
