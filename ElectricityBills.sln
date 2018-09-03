@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectricityBills", "ElectricityBills\ElectricityBills.csproj", "{5D396C3B-598A-4056-A427-52D12EA25CD8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "ClassLibrary1\DAL.csproj", "{B6845D12-B5F4-47F1-9BEA-D7979F17E2D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{5D396C3B-598A-4056-A427-52D12EA25CD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D396C3B-598A-4056-A427-52D12EA25CD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D396C3B-598A-4056-A427-52D12EA25CD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6845D12-B5F4-47F1-9BEA-D7979F17E2D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6845D12-B5F4-47F1-9BEA-D7979F17E2D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6845D12-B5F4-47F1-9BEA-D7979F17E2D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6845D12-B5F4-47F1-9BEA-D7979F17E2D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
