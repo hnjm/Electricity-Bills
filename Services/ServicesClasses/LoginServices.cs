@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using Repository;
-namespace Services
+
+namespace Services.ServicesClasses
 {
     public class LoginServices : BaseNotifyPropertyChanged
     {

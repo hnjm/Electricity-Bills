@@ -14,6 +14,7 @@ namespace DAL.Models
         public string CustomerName { get; set; }
         public string CustomerMobile { get; set; }
         public int? LineId { get; set; }
+        public int? MinimumAmount { get; set; }
         public int? CounterNumber { get; set; }
         public decimal? LastBalance { get; set; }
         public bool? CustomerStatue { get; set; }

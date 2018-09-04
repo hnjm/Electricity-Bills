@@ -116,9 +116,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseNotifyPropertyChanged.cs" />
-    <Compile Include="CustomerService.cs" />
-    <Compile Include="LineServices.cs" />
-    <Compile Include="LoginServices.cs" />
+    <Compile Include="ServicesClasses\CustomerService.cs" />
+    <Compile Include="ServicesClasses\LineServices.cs" />
+    <Compile Include="ServicesClasses\LoginServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

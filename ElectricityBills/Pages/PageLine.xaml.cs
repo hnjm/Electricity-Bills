@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using DAL.Models;
 using MahApps.Metro.Controls.Dialogs;
 using Services;
+using Services.ServicesClasses;
 using Line = DAL.Models.Line;
 
 namespace ElectricityBills.Pages

@@ -33,5 +33,15 @@ namespace ElectricityBills.Properties {
                 return ((string)(this["MyConnection"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Server=.;Database=ElectricityBills;Trusted_Connection=True")]
+        public string conn {
+            get {
+                return ((string)(this["conn"]));
+            }
+        }
     }
 }

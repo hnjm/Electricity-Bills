@@ -1,12 +1,12 @@
-﻿using DAL.Models;
-using Microsoft.EntityFrameworkCore;
-using Repository;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using DAL.Models;
+using Microsoft.EntityFrameworkCore;
+using Repository;
 using ViewModel;
 
-namespace Services
+namespace Services.ServicesClasses
 {
     public class LineServices : BaseNotifyPropertyChanged
     {
@@ -27,7 +27,6 @@ namespace Services
             {
                 Id = x.Id,
                 LineName = x.LineName,
-                MinimumAmount = x.MinimumAmount,
                 UnitPrice = x.UnitPrice,
                 CustomerCount = GetLineCustomerCount(x.Id),
             }).ToListAsync();

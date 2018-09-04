@@ -5,20 +5,20 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ElectricityBills.Pages"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:DAL.Models;assembly=DAL"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     Width="800"
     Height="450"
-    WindowState="Maximized"
-    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d"
     Loaded="MetroWindow_Loaded"
-    Title="إشتراكات الكهرباء">
-    <mah:MetroWindow.DataContext>
-        <models:Line/>
-    </mah:MetroWindow.DataContext>
+    Title="إشتراكات الكهرباء"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Maximized">
 
+    <mah:MetroWindow.DataContext>
+        <models:Line />
+    </mah:MetroWindow.DataContext>
 
     <mah:MetroWindow.Style>
         <StaticResource ResourceKey="BasicWindowStyle" />
@@ -26,31 +26,28 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition/>
+            <RowDefinition Height="100" />
+            <RowDefinition />
         </Grid.RowDefinitions>
-
         <materialDesign:Card
             Height="80"
             Margin="10"
             VerticalAlignment="Top"
             DockPanel.Dock="Top">
-
             <StackPanel
-                Name="StackItem"
                 Margin="10"
                 VerticalAlignment="Center"
+                Name="StackItem"
                 Orientation="Horizontal">
                 <TextBox
                     x:Name="TxtLineName"
                     Width="150"
-                    Text="{Binding LineName}"
                     VerticalAlignment="Center"
                     HorizontalContentAlignment="Left"
                     materialDesign:HintAssist.Hint="الاشتراك"
-                    materialDesign:HintAssist.IsFloating="True" />
-
-                <TextBox
+                    materialDesign:HintAssist.IsFloating="True"
+                    Text="{Binding LineName}" />
+                <!--<TextBox
                     x:Name="TxtMinAmount"
                     Width="150"
                     Margin="10 0 0 0"
@@ -59,73 +56,70 @@
                     VerticalAlignment="Center"
                     HorizontalContentAlignment="Center"
                     materialDesign:HintAssist.Hint="الحد الأدنى للإستهلاك"
-                    materialDesign:HintAssist.IsFloating="True" />
-
+                    materialDesign:HintAssist.IsFloating="True" />-->
                 <TextBox
                     x:Name="TxtUnitPrice"
                     Width="100"
                     Margin="10 0 0 0"
-                    PreviewTextInput="NumericInput"
-                    Text="{Binding UnitPrice}"
                     VerticalAlignment="Center"
                     HorizontalContentAlignment="Center"
                     materialDesign:HintAssist.Hint="سعر الوحدة"
-                    materialDesign:HintAssist.IsFloating="True" />
-
+                    materialDesign:HintAssist.IsFloating="True"
+                    PreviewTextInput="NumericInput"
+                    Text="{Binding UnitPrice}" />
                 <Button
-                    Name="BtnNew"
-                    Margin="10 0 0 0"
-                    Click="BtnNew_OnClick"
-                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                    ToolTip="جديد">
-                    <materialDesign:PackIcon
-                        Kind="Refresh"
-                        Height="24"
-                        Width="24" />
-                </Button>
-
-
-                <Button
-                    Name="BtnSave"
                     Margin="10 0 0 0"
                     Click="BtnSave_OnClick"
+                    Name="BtnSave"
                     Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
                     ToolTip="إضافة">
                     <materialDesign:PackIcon
-                        Kind="Plus"
+                        Width="24"
                         Height="24"
-                        Width="24" />
+                        Kind="Plus" />
                 </Button>
-
                 <Button
-                    Name="BtnDelete"
                     Margin="10 0 0 0"
-                    Click="BtnDelete_OnClick"
+                    Background="#FFFF0C00"
                     BorderBrush="Transparent"
                     BorderThickness="0"
+                    Click="BtnDelete_OnClick"
+                    Name="BtnDelete"
                     Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                    ToolTip="حذف" Background="#FFFF0C00">
+                    ToolTip="حذف">
                     <materialDesign:PackIcon
-                        Kind="Delete"
+                        Width="24"
                         Height="24"
-                        Width="24" />
+                        Kind="Delete" />
                 </Button>
-
+                <Button
+                    Margin="10 0 0 0"
+                    Click="BtnNew_OnClick"
+                    Name="BtnNew"
+                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                    ToolTip="جديد">
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Kind="Refresh" />
+                </Button>
             </StackPanel>
         </materialDesign:Card>
-
-
-
         <DataGrid
+            x:Name="LineDataGrid"
             Grid.Row="1"
             Margin="0 10 0 0"
-            x:Name="LineDataGrid"
             AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            GridLinesVisibility="All"
+            BorderThickness="1"
+            BorderBrush="Azure"
+            HorizontalGridLinesBrush="Azure"
+            VerticalGridLinesBrush="Azure"
             EnableRowVirtualization="True"
             ItemsSource="{Binding}"
-            CanUserAddRows="False"
-            SelectionChanged="LineDataGrid_OnSelectionChanged"
-            RowDetailsVisibilityMode="VisibleWhenSelected">
+            RowDetailsVisibilityMode="VisibleWhenSelected"
+            SelectionChanged="LineDataGrid_OnSelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     x:Name="IdColumn"
@@ -136,31 +130,27 @@
                 <DataGridTextColumn
                     x:Name="LineNameColumn"
                     Width="200"
-                    CellStyle="{StaticResource CenterCellAligned}"
                     Binding="{Binding LineName}"
+                    CellStyle="{StaticResource CenterCellAligned}"
                     Header="الإشتراك" />
-
-                <DataGridTextColumn
+                <!--<DataGridTextColumn
                     x:Name="MinimumAmountColumn"
                     Width="130"
                     CellStyle="{StaticResource CenterCellAligned}"
                     Binding="{Binding MinimumAmount}"
-                    Header="الحد الادني/ KWH" />
-
+                    Header="الحد الادني/ KWH" />-->
                 <DataGridTextColumn
                     x:Name="UnitPriceColumn"
                     Width="100"
-                    CellStyle="{StaticResource CenterCellAligned}"
                     Binding="{Binding UnitPrice }"
+                    CellStyle="{StaticResource CenterCellAligned}"
                     Header="سعر الوحدة" />
-
                 <DataGridTextColumn
                     x:Name="CustomersCount"
                     Width="120"
-                    CellStyle="{StaticResource CenterCellAligned}"
                     Binding="{Binding CustomerCount }"
+                    CellStyle="{StaticResource CenterCellAligned}"
                     Header="عدد المشتركيين" />
-
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

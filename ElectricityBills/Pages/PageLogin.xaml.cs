@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls.Dialogs;
 using Services;
+using Services.ServicesClasses;
 
 namespace ElectricityBills.Pages
 {

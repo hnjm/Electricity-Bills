@@ -51,6 +51,7 @@
                 <Button
                     x:Name="BtnNew"
                     Width="80"
+                    Style="{StaticResource MaterialDesignRaisedLightButton}"
                     Click="BtnNew_OnClick"
                     ToolTip="جديد">
                     <materialDesign:PackIcon
@@ -74,7 +75,7 @@
                     Width="80"
                     Margin="15 0 0 0"
                     Click="BtnDelet_OnClick"
-                    ToolTip="حذف">
+                    ToolTip="حذف" Background="#FFF32121" BorderBrush="Black">
                     <materialDesign:PackIcon
                         Width="25"
                         Height="25"
@@ -89,6 +90,7 @@
             Margin="10"
             HorizontalAlignment="Left"
             DockPanel.Dock="Left">
+
             <TextBox
                 x:Name="TxtName"
                 materialDesign:HintAssist.Hint="إسم الزبون"
@@ -101,18 +103,30 @@
                 DisplayMemberPath="LineName"
                 materialDesign:HintAssist.Hint="نوع الاشتراك"
                 materialDesign:HintAssist.IsFloating="True"
-                SelectedValue="Id"
-                SelectedValuePath="{Binding LineId}"/>
+                SelectedValue="{Binding LineId}"
+                SelectedValuePath="Id"/>
+
+            <TextBox
+                    x:Name="TxtMinAmount"
+                    Margin="0 10 0 0"
+                    PreviewTextInput="NumericInput"
+                    Text="{Binding MinimumAmount}"
+                    HorizontalContentAlignment="Left"
+                    materialDesign:HintAssist.Hint="الحد الأدنى للإستهلاك"
+                    materialDesign:HintAssist.IsFloating="True" />
+
 
             <TextBox
                 x:Name="TxtCounter"
                 Margin="0 10 0 0"
+                PreviewTextInput="NumericInput"
                 materialDesign:HintAssist.Hint="رقم العداد"
                 materialDesign:HintAssist.IsFloating="True"
                 Text="{Binding CounterNumber}" />
             <TextBox
                 x:Name="TxtMobile"
                 Margin="0 10 0 0"
+                PreviewTextInput="NumericInput"
                 materialDesign:HintAssist.Hint="رقم الموبايل"
                 materialDesign:HintAssist.IsFloating="True"
                 Text="{Binding CustomerMobile}" />
@@ -122,6 +136,7 @@
                 Content="حالة المشترك"
                 IsChecked="{Binding CustomerStatue , FallbackValue=True}" />
         </StackPanel>
+
         <DataGrid
             x:Name="CustomerDataGrid"
             Margin="10"
@@ -142,55 +157,47 @@
                     Binding="{Binding Id}"
                     Header="Id" />
                 <DataGridTextColumn
-                    Width="350"
+                    Width="*"
                     Binding="{Binding CustomerName}"
                     CellStyle="{StaticResource LeftCellAligned}"
                     Header="إسم الزبون" />
                 <DataGridTextColumn
-                    Width="250"
-                    Binding="{Binding Line.LineName}"
+                    Width="150"
+                    Binding="{Binding LineName}"
                     CellStyle="{StaticResource CenterCellAligned}"
                     Header="نوع الخط" />
+
                 <DataGridTextColumn
-                    Width="220"
+                    Width="150"
+                    Binding="{Binding MinimumAmount}"
+                    CellStyle="{StaticResource CenterCellAligned}"
+                    Header="الحد الادنى / KWH" />
+
+                <DataGridTextColumn
+                    Width="150"
                     Binding="{Binding CounterNumber}"
                     CellStyle="{StaticResource CenterCellAligned}"
-                    Header="الهاتف" />
+                    Header="رقم العداد" />
                 <DataGridTextColumn
-                    Width="220"
+                    Width="200"
                     Binding="{Binding CustomerMobile}"
                     CellStyle="{StaticResource CenterCellAligned}"
                     Header="الموبايل" />
                 <DataGridTextColumn
-                    Width="*"
+                    Width="150"
                     Binding="{Binding LastRead}"
                     CellStyle="{StaticResource CenterCellAligned}"
                     Header="آخر قراءة" />
                 <DataGridTextColumn
-                    Width="*"
+                    Width="150"
                     Binding="{Binding LastBalance}"
                     CellStyle="{StaticResource CenterCellAligned}"
                     Header="متأخرات" />
                 <DataGridCheckBoxColumn
-                    Width="*"
+                    Width="100"
                     Binding="{Binding CustomerStatue}"
                     CellStyle="{StaticResource CenterCellAligned}"
                     Header="الحالة" />
-                <DataGridTemplateColumn Width="100">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button
-                                Click="BtnOpeningBalance_OnClick"
-                                Name="BtnOpeningBalance"
-                                ToolTip="الأرصدة الإفتتاحية">
-                                <materialDesign:PackIcon
-                                    Width="24"
-                                    Height="24"
-                                    Kind="WindowOpen" />
-                            </Button>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </DockPanel>
