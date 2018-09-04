@@ -69,8 +69,10 @@
                 IsDefault="True"
                 Name="BtnLogin" />
         </Grid>
-        <mah:RevealImage Grid.Column="1">
-            <Image Source="../Resources/emp.jpg" />
+        <mah:RevealImage 
+            Margin="0 0 10 0"
+            Grid.Column="1">
+            <Image Source="../Resources/login.png" />
         </mah:RevealImage>
     </Grid>
 

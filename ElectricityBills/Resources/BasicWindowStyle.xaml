@@ -6,7 +6,7 @@
 
     <Style x:Key="BasicWindowStyle" TargetType="{x:Type controls:MetroWindow}">
         <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}" />
-        <Setter Property="Foreground" Value="{DynamicResource MaterialDesignLightForeground}" />
+        <Setter Property="Foreground" Value="{DynamicResource MaterialDesignDarkForeground}" />
 
         <Setter Property="FlowDirection" Value="RightToLeft" />
         <Setter Property="FontFamily" Value="/ElectricityBills;component/Resources/#Hacen Tunisia" />

@@ -72,6 +72,7 @@
     <Reference Include="Microsoft.Extensions.Primitives, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="PropertyChanged, Version=2.5.9.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
       <HintPath>..\packages\PropertyChanged.Fody.2.5.9\lib\net452\PropertyChanged.dll</HintPath>
     </Reference>
@@ -115,6 +116,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseNotifyPropertyChanged.cs" />
+    <Compile Include="CustomerService.cs" />
+    <Compile Include="LineServices.cs" />
     <Compile Include="LoginServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -133,6 +136,10 @@
     <ProjectReference Include="..\Repository\Repository.csproj">
       <Project>{c96e2f0d-db9f-4005-a43f-8743ba68e24f}</Project>
       <Name>Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModel\ViewModel.csproj">
+      <Project>{0182934f-f1bf-4f55-8899-5dddb698360a}</Project>
+      <Name>ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

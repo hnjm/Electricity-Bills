@@ -12,7 +12,7 @@ namespace DAL.Models
 
         public int Id { get; set; }
         public string LineName { get; set; }
-        public int? MinimunAmount { get; set; }
+        public int? MinimumAmount { get; set; }
         public decimal? UnitPrice { get; set; }
 
         public ICollection<Customer> Customer { get; set; }

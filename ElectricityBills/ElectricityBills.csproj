@@ -68,6 +68,12 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="ToastNotifications, Version=2.3.4.0, Culture=neutral, PublicKeyToken=e89d9d7314a7c797, processorArchitecture=MSIL">
+      <HintPath>..\packages\ToastNotifications.2.3.4\lib\net40\ToastNotifications.dll</HintPath>
+    </Reference>
+    <Reference Include="ToastNotifications.Messages, Version=2.3.4.0, Culture=neutral, PublicKeyToken=e89d9d7314a7c797, processorArchitecture=MSIL">
+      <HintPath>..\packages\ToastNotifications.Messages.2.3.4\lib\net40\ToastNotifications.Messages.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -94,6 +100,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\PageLine.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\PageLogin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -114,6 +124,9 @@
   <ItemGroup>
     <Compile Include="Pages\PageCustomer.xaml.cs">
       <DependentUpon>PageCustomer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageLine.xaml.cs">
+      <DependentUpon>PageLine.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PageLogin.xaml.cs">
       <DependentUpon>PageLogin.xaml</DependentUpon>
@@ -136,6 +149,13 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\DAL.BaseNotifyPropertyChanged.datasource" />
+    <None Include="Properties\DataSources\DAL.Models.CounterReads.datasource" />
+    <None Include="Properties\DataSources\DAL.Models.Customer.datasource" />
+    <None Include="Properties\DataSources\DAL.Models.CustomerBills.datasource" />
+    <None Include="Properties\DataSources\DAL.Models.ElectricityBillsContext.datasource" />
+    <None Include="Properties\DataSources\DAL.Models.Line.datasource" />
+    <None Include="Properties\DataSources\DAL.Models.User.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -178,6 +198,9 @@
       <Project>{ed35e005-202f-4ede-b889-db831ff1c251}</Project>
       <Name>Services</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\login.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

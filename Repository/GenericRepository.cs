@@ -67,26 +67,26 @@ namespace Repository
         public T Add(T t)
         {
             _context.Set<T>().Add(t);
-            _context.SaveChanges();
+            //_context.SaveChanges();
             return t;
         }
 
         public async Task AddRangAsync(IEnumerable<T> t)
         {
             await _context.Set<T>().AddRangeAsync(t);
-            await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();
         }
 
         public void AddRang(IEnumerable<T> t)
         {
             _context.Set<T>().AddRange(t);
-            _context.SaveChanges();
+            //_context.SaveChanges();
         }
 
         public async Task<T> AddAsync(T t)
         {
-            _context.Set<T>().Add(t);
-            await _context.SaveChangesAsync();
+            await _context.Set<T>().AddAsync(t);
+            //await _context.SaveChangesAsync();
             return t;
         }
 
@@ -113,39 +113,20 @@ namespace Repository
         public void Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
-            _context.SaveChanges();
+            //_context.SaveChanges();
         }
 
         public void DeleteById(int id)
         {
             var item = GetById(id);
             _context.Set<T>().Remove(item);
-            _context.SaveChanges();
-        }
-
-        public async Task DeleteAsyncById(int id)
-        {
-            var item = GetById(id);
-            _context.Set<T>().Remove(item);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<int> DeleteAsync(T entity)
-        {
-            _context.Set<T>().Remove(entity);
-            return await _context.SaveChangesAsync();
-        }
-
-        public async Task<int> DeleteRangAsync(IEnumerable<T> entity)
-        {
-            _context.Set<T>().RemoveRange(entity);
-            return await _context.SaveChangesAsync();
+            //_context.SaveChanges();
         }
 
         public void DeleteRang(IEnumerable<T> entity)
         {
             _context.Set<T>().RemoveRange(entity);
-            _context.SaveChanges();
+            //_context.SaveChanges();
         }
 
         public T Update(T t, object key)
@@ -156,7 +137,7 @@ namespace Repository
             if (exist != null)
             {
                 _context.Entry(exist).CurrentValues.SetValues(t);
-                _context.SaveChanges();
+                //_context.SaveChanges();
             }
 
             return exist;
@@ -170,7 +151,7 @@ namespace Repository
             if (exist != null)
             {
                 _context.Entry(exist).CurrentValues.SetValues(t);
-                await _context.SaveChangesAsync();
+                //await _context.SaveChangesAsync();
             }
 
             return exist;
@@ -184,6 +165,11 @@ namespace Repository
         public async Task<int> CountAsync()
         {
             return await _context.Set<T>().CountAsync();
+        }
+
+        public async Task<bool> AnyAsync(Expression<Func<T, bool>> filter)
+        {
+            return await _context.Set<T>().AnyAsync(filter);
         }
 
         public void Save()

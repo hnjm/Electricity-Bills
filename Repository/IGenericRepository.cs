@@ -15,11 +15,11 @@ namespace Repository
         int Count();
         Task<int> CountAsync();
         void Delete(T entity);
-        Task<int> DeleteAsync(T entity);
-        Task DeleteAsyncById(int id);
+        //Task<int> DeleteAsync(T entity);
+        //Task DeleteAsyncById(int id);
         void DeleteById(int id);
         void DeleteRang(IEnumerable<T> entity);
-        Task<int> DeleteRangAsync(IEnumerable<T> entity);
+        //Task<int> DeleteRangAsync(IEnumerable<T> entity);
         void Dispose();
         ICollection<T> FindAll(Expression<Func<T, bool>> match);
         Task<ICollection<T>> FindAllAsync(Expression<Func<T, bool>> match);
@@ -30,6 +30,7 @@ namespace Repository
         IQueryable<T> GetAllIncluding(params Expression<Func<T, object>>[] includeProperties);
         T GetById(int id);
         Task<T> GetByIdAsync(int id);
+        Task<bool> AnyAsync(Expression<Func<T, bool>> filter);
         void Save();
         Task<int> SaveAsync();
         T SingleOrDefault(Expression<Func<T, bool>> match);
