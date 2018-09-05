@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using DAL.Models;
@@ -44,5 +45,6 @@ namespace Services.ServicesClasses
                 LastBalance = x.LastBalance
             }).ToListAsync();
         }
+
     }
 }

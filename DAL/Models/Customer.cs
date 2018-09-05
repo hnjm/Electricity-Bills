@@ -7,7 +7,7 @@ namespace DAL.Models
     {
         public Customer()
         {
-            CounterReads = new HashSet<CounterReads>();
+            //CounterReads = new HashSet<CounterReads>();
             CustomerBills = new HashSet<CustomerBills>();
             Payment = new HashSet<Payment>();
         }
@@ -20,11 +20,10 @@ namespace DAL.Models
         public int? CounterNumber { get; set; }
         public decimal? LastBalance { get; set; }
         public bool? CustomerStatue { get; set; }
-        public int? PaymentId { get; set; }
 
-        public Line Line { get; set; }
-        public ICollection<CounterReads> CounterReads { get; set; }
-        public ICollection<CustomerBills> CustomerBills { get; set; }
-        public ICollection<Payment> Payment { get; set; }
+        public virtual Line Line { get; set; }
+        public virtual ICollection<CounterReads> CounterReads { get; set; }
+        public virtual ICollection<CustomerBills> CustomerBills { get; set; }
+        public virtual ICollection<Payment> Payment { get; set; }
     }
 }

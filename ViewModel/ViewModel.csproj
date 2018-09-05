@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VMCounterReads.cs" />
     <Compile Include="VMCustomer.cs" />
     <Compile Include="VMLine.cs" />
   </ItemGroup>
@@ -50,6 +51,9 @@
       <Project>{b6845d12-b5f4-47f1-9bea-d7979f17e2d4}</Project>
       <Name>DAL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

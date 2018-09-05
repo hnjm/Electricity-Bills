@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DAL.Models
 {
@@ -20,7 +21,7 @@ namespace DAL.Models
         public decimal? BillAmount { get; set; }
         public string Notes { get; set; }
 
-        public Customer Customer { get; set; }
-        public Line Line { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual Line Line { get; set; }
     }
 }

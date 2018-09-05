@@ -26,7 +26,9 @@ namespace DAL.Models
             if (!optionsBuilder.IsConfigured)
             {
                 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.;Database=ElectricityBills;Trusted_Connection=True;");
+                optionsBuilder
+                    .UseLazyLoadingProxies()
+                    .UseSqlServer("Server=.;Database=ElectricityBills;Trusted_Connection=True;");
             }
         }
 
@@ -48,8 +50,6 @@ namespace DAL.Models
             modelBuilder.Entity<Customer>(entity =>
             {
                 entity.HasIndex(e => e.LineId);
-
-                entity.HasIndex(e => e.PaymentId);
 
                 entity.Property(e => e.CustomerName).HasMaxLength(50);
 
@@ -107,9 +107,14 @@ namespace DAL.Models
             {
                 entity.Property(e => e.DateOfPay).HasColumnType("date");
 
+                entity.Property(e => e.PaymentAmount)
+                    .HasColumnName("Payment")
+                    .HasColumnType("decimal(8, 2)");
+
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.Payment)
                     .HasForeignKey(d => d.CustomerId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Payment_Customer");
             });
         }
