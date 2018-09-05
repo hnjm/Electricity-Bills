@@ -39,7 +39,7 @@ namespace Services.ServicesClasses
         public async Task PopulateRegisterDataGrid(DataGrid dgv)
         {
             var list = await _customerRepository
-                .GetAll()
+                .GetAll(x => x.CustomerStatue == true)
                 .Select(x => new VMCounterReads()
                 {
                     CustomerId = x.Id,

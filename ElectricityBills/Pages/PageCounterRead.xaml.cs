@@ -1,18 +1,15 @@
-﻿using Services.ServicesClasses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Input;
 using DAL.Models;
+using Services.ServicesClasses;
 using ToastNotifications.Messages;
 
 namespace ElectricityBills.Pages
 {
     /// <summary>
-    /// Interaction logic for PageCounterRead.xaml
+    ///     Interaction logic for PageCounterRead.xaml
     /// </summary>
     public partial class PageCounterRead
     {
@@ -28,7 +25,7 @@ namespace ElectricityBills.Pages
 
         private async Task PopulateDataGrid()
         {
-            using(_counterReadServices)
+            using (_counterReadServices)
             {
                 await _counterReadServices.PopulateRegisterDataGrid(CounterReadsDataGrid);
             }
@@ -41,28 +38,25 @@ namespace ElectricityBills.Pages
 
         private async void BtnSave_OnClick(object sender, RoutedEventArgs e)
         {
-            if (CounterReadsDataGrid.Items.Count <=0) return;
+            if (CounterReadsDataGrid.Items.Count <= 0) return;
 
             var list = new List<CounterReads>();
 
-            foreach (var item in CounterReadsDataGrid.Items )
+            foreach (var item in CounterReadsDataGrid.Items)
             {
                 var counter = item as CounterReads;
 
-                //using (_counterReadServices)
-                //{
-                //    var lastrec = _counterReadServices.GetLastCustomerCounterRead((int)counter.CustomerId, null);
-
-                //    if (!(counter?.TheRead <= lastrec)) return;
-                //    var name = counter.Customer.CustomerName;
-                //    BasicClass.Notifier.ShowError("تحقق من قراءة عداد الزبون" + counter.Customer.CustomerName);
-                //}
-
-                if (counter?.TheRead!= null)
+                if (counter?.TheRead != null)
                 {
                     counter.DateOfRead = DateOfRead.SelectedDate;
                     list.Add(counter);
                 }
+            }
+
+            if (string.IsNullOrEmpty(DateOfRead.Text))
+            {
+                BasicClass.Notifier.ShowInformation("يرجى تحديد تاريخ القراءة");
+                return;
             }
 
             using (_counterReadServices)
@@ -82,31 +76,14 @@ namespace ElectricityBills.Pages
         {
             var item = CounterReadsDataGrid.CurrentItem as CounterReads;
 
-            if(item?.TheRead == null) return;
-
-            using (_counterReadServices)
-            {
-                var lastrec = _counterReadServices.GetLastCustomerCounterRead((int)item.CustomerId, null);
-
-                if (!(item?.TheRead <= lastrec)) return;
-                BasicClass.Notifier.ShowError("تحقق من قراءة العداد");
-                return;
-            }
-        }
-
-        private void TxtRead_OnGotFocus(object sender, RoutedEventArgs e)
-        {
-            var item = CounterReadsDataGrid.SelectedItem as CounterReads;
-
             if (item?.TheRead == null) return;
 
             using (_counterReadServices)
             {
-                var lastrec = _counterReadServices.GetLastCustomerCounterRead((int)item.CustomerId, null);
+                var lastrec = _counterReadServices.GetLastCustomerCounterRead((int) item.CustomerId, null);
 
                 if (!(item?.TheRead <= lastrec)) return;
                 BasicClass.Notifier.ShowError("تحقق من قراءة العداد");
-                return;
             }
         }
     }

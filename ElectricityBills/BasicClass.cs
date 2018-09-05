@@ -44,6 +44,10 @@ namespace ElectricityBills
 
         public static Notifier Notifier { get;} = new Notifier(cfg =>
         {
+            cfg.DisplayOptions.Width = 500;
+            
+
+
             cfg.PositionProvider = new WindowPositionProvider(
                 parentWindow: Application.Current.MainWindow,
                 corner: Corner.BottomLeft,

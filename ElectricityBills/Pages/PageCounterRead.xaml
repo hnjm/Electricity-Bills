@@ -10,6 +10,8 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     Width="800"
     Height="450"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Maximized"
     mc:Ignorable="d"
     Loaded="Window_Loaded"
     Title="قراءات المشتركيين">
@@ -28,6 +30,7 @@
     </Window.Style>
 
     <DockPanel>
+
         <DataGrid
             x:Name="CounterReadsDataGrid"
             DockPanel.Dock="Top"
@@ -40,6 +43,7 @@
             LostFocus="TxtRead_OnLostFocus"
             RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
+
                 <!--<DataGridTextColumn
                     x:Name="IdColumn"
                     MaxWidth="0"
