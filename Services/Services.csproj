@@ -120,6 +120,7 @@
     <Compile Include="ServicesClasses\LineServices.cs" />
     <Compile Include="ServicesClasses\LoginServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServicesClasses\CounterReadServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -9,7 +9,7 @@ namespace DAL.Models
         public int? LineId { get; set; }
         public DateTime? DateOfLastRead { get; set; }
         public string PeriodOfBill { get; set; }
-        public int? MinimunAmount { get; set; }
+        public int? MinimumAmount { get; set; }
         public long? LastRead { get; set; }
         public long? CurrentRead { get; set; }
         public decimal? UnitPrice { get; set; }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DAL.Models
 {
@@ -8,6 +9,7 @@ namespace DAL.Models
         {
             CounterReads = new HashSet<CounterReads>();
             CustomerBills = new HashSet<CustomerBills>();
+            Payment = new HashSet<Payment>();
         }
 
         public int Id { get; set; }
@@ -18,9 +20,11 @@ namespace DAL.Models
         public int? CounterNumber { get; set; }
         public decimal? LastBalance { get; set; }
         public bool? CustomerStatue { get; set; }
+        public int? PaymentId { get; set; }
 
         public Line Line { get; set; }
         public ICollection<CounterReads> CounterReads { get; set; }
         public ICollection<CustomerBills> CustomerBills { get; set; }
+        public ICollection<Payment> Payment { get; set; }
     }
 }

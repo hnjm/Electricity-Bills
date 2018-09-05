@@ -11,10 +11,12 @@ namespace Services.ServicesClasses
     public class CustomerService : BaseNotifyPropertyChanged
     {
         public readonly IGenericRepository<Customer> CustomerRepository;
+        private readonly CounterReadServices _counterReadServices;
 
         public CustomerService()
         {
             CustomerRepository = new GenericRepository<Customer>(new ElectricityBillsContext());
+            _counterReadServices = new CounterReadServices();
         }
 
         public async Task<bool> CheckCustomerIfFound(string customerName)
@@ -38,6 +40,7 @@ namespace Services.ServicesClasses
                 LineName = x.Line.LineName,
                 MinimumAmount = x.MinimumAmount,
                 CustomerStatue = x.CustomerStatue,
+                LastRead = _counterReadServices.GetLastCustomerCounterRead(x.Id , null),
                 LastBalance = x.LastBalance
             }).ToListAsync();
         }

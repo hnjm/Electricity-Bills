@@ -27,7 +27,6 @@
             DockPanel.Dock="Top">
             <StackPanel
                 Margin="10"
-                VerticalAlignment="Center"
                 Orientation="Horizontal">
                 <TextBox
                     x:Name="TxtCustomerSearch"
@@ -37,8 +36,10 @@
                     materialDesign:HintAssist.Hint="البحث بإسم الزبون ........"
                     materialDesign:HintAssist.IsFloating="True"
                     TextChanged="TxtCustomerSearch_OnTextChanged" />
+
             </StackPanel>
         </materialDesign:Card>
+
         <materialDesign:Card
             Height="80"
             Margin="0 10"
@@ -84,29 +85,48 @@
             </StackPanel>
         </materialDesign:Card>
         <!--القائمة اليمنى-->
-        <StackPanel
+
+        <GroupBox Header="بيانات الزبون"
+                  Margin="0 10">
+            <StackPanel
             x:Name="StackItems"
             Width="300"
             Margin="10"
             HorizontalAlignment="Left"
             DockPanel.Dock="Left">
 
-            <TextBox
+                <TextBox
                 x:Name="TxtName"
                 materialDesign:HintAssist.Hint="إسم الزبون"
                 materialDesign:HintAssist.IsFloating="True"
                 Text="{Binding CustomerName}" />
 
-            <ComboBox
-                x:Name="ComboBoxLine"
-                Margin="0 10 0 0"
-                DisplayMemberPath="LineName"
-                materialDesign:HintAssist.Hint="نوع الاشتراك"
-                materialDesign:HintAssist.IsFloating="True"
-                SelectedValue="{Binding LineId}"
-                SelectedValuePath="Id"/>
+                <StackPanel Orientation="Horizontal" 
+                        VerticalAlignment="Center">
+                    <ComboBox
+                    x:Name="ComboBoxLine"
+                    Margin="0 10 0 0"
+                    Width="200"
+                    HorizontalAlignment="Left"
+                    DisplayMemberPath="LineName"
+                    materialDesign:HintAssist.Hint="نوع الاشتراك"
+                    materialDesign:HintAssist.IsFloating="True"
+                    SelectedValue="{Binding LineId}"
+                    SelectedValuePath="Id"/>
 
-            <TextBox
+                    <Button
+                    Name="BtnLinePage"
+                    Click="BtnLinePage_OnClick"
+                    Margin="30 12 0 0"
+                    Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                        <materialDesign:PackIcon
+                        Kind="Plus"
+                        Height="24"
+                        Width="24" />
+                    </Button>
+                </StackPanel>
+
+                <TextBox
                     x:Name="TxtMinAmount"
                     Margin="0 10 0 0"
                     PreviewTextInput="NumericInput"
@@ -115,27 +135,29 @@
                     materialDesign:HintAssist.Hint="الحد الأدنى للإستهلاك"
                     materialDesign:HintAssist.IsFloating="True" />
 
-
-            <TextBox
+                <TextBox
                 x:Name="TxtCounter"
                 Margin="0 10 0 0"
                 PreviewTextInput="NumericInput"
                 materialDesign:HintAssist.Hint="رقم العداد"
                 materialDesign:HintAssist.IsFloating="True"
                 Text="{Binding CounterNumber}" />
-            <TextBox
+                <TextBox
                 x:Name="TxtMobile"
                 Margin="0 10 0 0"
                 PreviewTextInput="NumericInput"
                 materialDesign:HintAssist.Hint="رقم الموبايل"
                 materialDesign:HintAssist.IsFloating="True"
                 Text="{Binding CustomerMobile}" />
-            <CheckBox
+                <CheckBox
                 x:Name="TxtStatue"
                 Margin="0 20 0 0"
                 Content="حالة المشترك"
-                IsChecked="{Binding CustomerStatue , FallbackValue=True}" />
-        </StackPanel>
+                IsChecked="{Binding CustomerStatue , TargetNullValue=True}" />
+            </StackPanel>
+
+        </GroupBox>
+
 
         <DataGrid
             x:Name="CustomerDataGrid"

@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DAL.Models;
+using MahApps.Metro.Controls.Dialogs;
+using Services.ServicesClasses;
+using System;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using DAL.Models;
-using MahApps.Metro.Controls.Dialogs;
-using Services;
-using Services.ServicesClasses;
 using Line = DAL.Models.Line;
 
 namespace ElectricityBills.Pages
@@ -57,7 +49,7 @@ namespace ElectricityBills.Pages
 
         private async void BtnSave_OnClick(object sender, RoutedEventArgs e)
         {
-            if(!(StackItem.DataContext is Line item))return;
+            if (!(StackItem.DataContext is Line item)) return;
 
             using (_line)
             {
@@ -70,7 +62,7 @@ namespace ElectricityBills.Pages
                 }
                 else
                 {
-                    await _line.Line.UpdateAsync(item , item.Id);
+                    await _line.Line.UpdateAsync(item, item.Id);
                     await _line.Line.SaveAsync();
                 }
 

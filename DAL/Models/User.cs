@@ -1,4 +1,6 @@
-﻿namespace DAL.Models
+﻿using System;
+
+namespace DAL.Models
 {
     public partial class User : BaseNotifyPropertyChanged
     {

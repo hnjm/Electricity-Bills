@@ -1,5 +1,5 @@
-﻿using System.Configuration;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace DAL.Models
 {
@@ -18,6 +18,7 @@ namespace DAL.Models
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<CustomerBills> CustomerBills { get; set; }
         public virtual DbSet<Line> Line { get; set; }
+        public virtual DbSet<Payment> Payment { get; set; }
         public virtual DbSet<User> User { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -25,10 +26,7 @@ namespace DAL.Models
             if (!optionsBuilder.IsConfigured)
             {
                 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-
-                //var connectionString = ""
-
-                optionsBuilder.UseSqlServer(@"Server=.;Database=ElectricityBills;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.;Database=ElectricityBills;Trusted_Connection=True;");
             }
         }
 
@@ -36,6 +34,8 @@ namespace DAL.Models
         {
             modelBuilder.Entity<CounterReads>(entity =>
             {
+                entity.HasIndex(e => e.CustomerId);
+
                 entity.Property(e => e.DateOfRead).HasColumnType("date");
 
                 entity.HasOne(d => d.Customer)
@@ -47,6 +47,10 @@ namespace DAL.Models
 
             modelBuilder.Entity<Customer>(entity =>
             {
+                entity.HasIndex(e => e.LineId);
+
+                entity.HasIndex(e => e.PaymentId);
+
                 entity.Property(e => e.CustomerName).HasMaxLength(50);
 
                 entity.Property(e => e.LastBalance).HasColumnType("decimal(8, 2)");
@@ -60,6 +64,10 @@ namespace DAL.Models
 
             modelBuilder.Entity<CustomerBills>(entity =>
             {
+                entity.HasIndex(e => e.CustomerId);
+
+                entity.HasIndex(e => e.LineId);
+
                 entity.Property(e => e.BillAmount).HasColumnType("decimal(8, 2)");
 
                 entity.Property(e => e.DateOfLastRead).HasColumnType("date");
@@ -93,6 +101,16 @@ namespace DAL.Models
                 entity.Property(e => e.LineName).HasMaxLength(50);
 
                 entity.Property(e => e.UnitPrice).HasColumnType("decimal(8, 2)");
+            });
+
+            modelBuilder.Entity<Payment>(entity =>
+            {
+                entity.Property(e => e.DateOfPay).HasColumnType("date");
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.Payment)
+                    .HasForeignKey(d => d.CustomerId)
+                    .HasConstraintName("FK_Payment_Customer");
             });
         }
     }

@@ -123,5 +123,12 @@ namespace ElectricityBills.Pages
         {
             ComboBoxLine.ItemsSource = await _lineServices.Line.GetAllAsync();
         }
+
+        private async void BtnLinePage_OnClick(object sender, RoutedEventArgs e)
+        {
+            var frm = new PageLine();
+            frm.ShowDialog();
+            await PopulateLineComboBox();
+        }
     }
 }
