@@ -15,7 +15,7 @@ namespace DAL.Models
         public string LineName { get; set; }
         public decimal? UnitPrice { get; set; }
 
-        public virtual ICollection<Customer> Customer { get; set; }
-        public virtual ICollection<CustomerBills> CustomerBills { get; set; }
+        public  ICollection<Customer> Customer { get; set; }
+        public  ICollection<CustomerBills> CustomerBills { get; set; }
     }
 }

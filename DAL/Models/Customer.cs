@@ -21,9 +21,9 @@ namespace DAL.Models
         public decimal? LastBalance { get; set; }
         public bool? CustomerStatue { get; set; }
 
-        public virtual Line Line { get; set; }
-        public virtual ICollection<CounterReads> CounterReads { get; set; }
-        public virtual ICollection<CustomerBills> CustomerBills { get; set; }
-        public virtual ICollection<Payment> Payment { get; set; }
+        public  Line Line { get; set; }
+        public  ICollection<CounterReads> CounterReads { get; set; }
+        public  ICollection<CustomerBills> CustomerBills { get; set; }
+        public  ICollection<Payment> Payment { get; set; }
     }
 }

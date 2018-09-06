@@ -2,23 +2,23 @@
     x:Class="ElectricityBills.Pages.PageCounterRead"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:ElectricityBills.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ElectricityBills.Pages"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="clr-namespace:DAL.Models;assembly=DAL"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:DAL.Models;assembly=DAL"
     Width="800"
     Height="450"
-    WindowStartupLocation="CenterScreen"
-    WindowState="Maximized"
     mc:Ignorable="d"
     Loaded="Window_Loaded"
-    Title="قراءات المشتركيين">
-
+    Title="قراءات المشتركيين"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Maximized">
 
     <mah:MetroWindow.DataContext>
-        <models:CounterReads/>
+        <models:CounterReads />
     </mah:MetroWindow.DataContext>
 
     <!--<mah:MetroWindow.DataContext>
@@ -29,59 +29,73 @@
         <StaticResource ResourceKey="BasicWindowStyle" />
     </Window.Style>
 
-    <DockPanel>
+    <!--<Window.Resources>
+        <converter:NameToBrushConverter x:Key="NameToBrushConverter" />
+    </Window.Resources>-->
 
+    <DockPanel>
         <DataGrid
             x:Name="CounterReadsDataGrid"
-            DockPanel.Dock="Top"
+            AutoGenerateColumns="False"
             CanUserAddRows="False"
+            DockPanel.Dock="Top"
+            EnableRowVirtualization="True"
             GridLinesVisibility="All"
             HorizontalGridLinesBrush="White"
-            VerticalGridLinesBrush="White"
-            AutoGenerateColumns="False"
-            EnableRowVirtualization="True"
             LostFocus="TxtRead_OnLostFocus"
-            RowDetailsVisibilityMode="VisibleWhenSelected">
+            RowDetailsVisibilityMode="VisibleWhenSelected"
+            VerticalGridLinesBrush="White">
             <DataGrid.Columns>
-
                 <!--<DataGridTextColumn
                     x:Name="IdColumn"
                     MaxWidth="0"
                     Binding="{Binding Path= Id , Mode=OneWay}"
                     Header="Id" />-->
-
                 <DataGridTextColumn
                     x:Name="CustomerIdColumn"
                     MaxWidth="0"
                     Binding="{Binding CustomerId }"
                     Header="الزبون" />
-
                 <DataGridTextColumn
                     x:Name="CustomerNameColumn"
                     Width="250"
-                    IsReadOnly="True"
-                    CellStyle="{StaticResource LeftCellAligned}"
                     Binding="{Binding CustomerName }"
-                    Header="الزبون" />
-
-
+                    CellStyle="{StaticResource LeftCellAligned}"
+                    Header="الزبون"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    x:Name="CustomerLastReadColumn"
+                    Width="150"
+                    Binding="{Binding LastRead }"
+                    CellStyle="{StaticResource CenterCellAligned}"
+                    Header="القراءة السابقة"
+                    IsReadOnly="True" />
                 <DataGridTextColumn
                     x:Name="TheReadColumn"
                     Width="150"
                     Binding="{Binding TheRead}"
                     CellStyle="{StaticResource CenterCellAligned}"
                     Header="القراءة" />
-
                 <DataGridTextColumn
                     x:Name="NoteColumn"
                     Width="*"
-                    CellStyle="{StaticResource LeftCellAligned}"
                     Binding="{Binding Note }"
+                    CellStyle="{StaticResource LeftCellAligned}"
                     Header="ملاحظات" />
-
             </DataGrid.Columns>
+            <!--<DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource NameToBrushConverter}">
+                                <Binding Path="LastRead" />
+                                <Binding Path="TheRead" />
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.RowStyle>-->
         </DataGrid>
-
         <materialDesign:Card
             Height="80"
             Margin="0 10"
@@ -91,14 +105,13 @@
                 Margin="10 0 0 0"
                 HorizontalAlignment="Center"
                 Orientation="Horizontal">
-                <DatePicker 
+                <DatePicker
                     Width="120"
-                    Name="DateOfRead"
-                    SelectedDate="{Binding DateOfRead}"
-                    materialDesign:HintAssist.IsFloating="True"
+                    VerticalAlignment="Center"
                     materialDesign:HintAssist.Hint="تاريخ القراءة"
-                    VerticalAlignment="Center" />
-
+                    materialDesign:HintAssist.IsFloating="True"
+                    Name="DateOfRead"
+                    SelectedDate="{Binding DateOfRead}" />
                 <Button
                     x:Name="BtnSave"
                     Width="80"
@@ -112,7 +125,6 @@
                 </Button>
             </StackPanel>
         </materialDesign:Card>
-
     </DockPanel>
 
 </mah:MetroWindow>

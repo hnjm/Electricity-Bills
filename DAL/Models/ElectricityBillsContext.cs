@@ -14,12 +14,12 @@ namespace DAL.Models
         {
         }
 
-        public virtual DbSet<CounterReads> CounterReads { get; set; }
-        public virtual DbSet<Customer> Customer { get; set; }
-        public virtual DbSet<CustomerBills> CustomerBills { get; set; }
-        public virtual DbSet<Line> Line { get; set; }
-        public virtual DbSet<Payment> Payment { get; set; }
-        public virtual DbSet<User> User { get; set; }
+        public  DbSet<CounterReads> CounterReads { get; set; }
+        public  DbSet<Customer> Customer { get; set; }
+        public  DbSet<CustomerBills> CustomerBills { get; set; }
+        public  DbSet<Line> Line { get; set; }
+        public  DbSet<Payment> Payment { get; set; }
+        public  DbSet<User> User { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -27,7 +27,6 @@ namespace DAL.Models
             {
                 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder
-                    .UseLazyLoadingProxies()
                     .UseSqlServer("Server=.;Database=ElectricityBills;Trusted_Connection=True;");
             }
         }

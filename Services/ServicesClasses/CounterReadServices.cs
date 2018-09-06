@@ -44,9 +44,36 @@ namespace Services.ServicesClasses
                 {
                     CustomerId = x.Id,
                     CustomerName = x.CustomerName,
+                    LastRead = GetLastCustomerCounterRead(x.Id , null)
+                    
                 }).ToListAsync();
 
             dgv.ItemsSource = list;
+
+        }
+
+
+        public async Task PopulateReadsListDataGrid(DataGrid dgv)
+        {
+            var list = await CounterReadsRepository
+                .GetAll()
+                .Include(x => x.Customer)
+                .ToListAsync();
+
+                var source = list
+                .Select(x => new VMCounterReads()
+                {
+                    Id = x.Id ,
+                    CustomerId = x.CustomerId,
+                    DateOfRead = x.DateOfRead ,
+                    CustomerName = x.Customer.CustomerName,
+                    TheRead = x.TheRead ,
+                    LastRead = GetLastCustomerCounterRead((int)x.CustomerId, x.DateOfRead),
+                    Note = x.Note
+
+                }).OrderBy(x => x.DateOfRead);
+
+            dgv.ItemsSource = source;
 
         }
 

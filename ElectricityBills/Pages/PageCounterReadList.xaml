@@ -1,0 +1,105 @@
+﻿<mah:MetroWindow
+    x:Class="ElectricityBills.Pages.PageCounterReadList"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ElectricityBills.Pages"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:DAL.Models;assembly=DAL"
+    xmlns:converter="clr-namespace:ElectricityBills.Converter"
+    Width="800"
+    Height="450"
+    WindowState="Maximized"
+    WindowStartupLocation="CenterScreen"
+    Style="{StaticResource BasicWindowStyle}"
+    mc:Ignorable="d"
+    Loaded="MetroWindow_Loaded"
+    Title="قراءات المشتركين">
+    <mah:MetroWindow.DataContext>
+        <models:CounterReads/>
+    </mah:MetroWindow.DataContext>
+
+    <Window.Resources>
+        <converter:NameToBrushConverter x:Key="NameToBrushConverter" />
+    </Window.Resources>
+
+    <Grid>
+        <DataGrid
+            x:Name="CounterReadsDataGrid"
+            AutoGenerateColumns="False"
+            EnableRowVirtualization="True"
+            ItemsSource="{Binding}"
+            RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+
+                <DataGridTextColumn
+                    x:Name="IdColumn"
+                    MaxWidth="0"
+                    Binding="{Binding Id}"
+                    Header="Id" />
+
+                <DataGridTextColumn
+                    x:Name="CustomerIdColumn"
+                    MaxWidth="0"
+                    Binding="{Binding CustomerId}"
+                    Header="Customer Id" />
+
+                <DataGridTextColumn
+                    x:Name="DateOfReadColumn"
+                    Width="100"
+                    CellStyle="{StaticResource CenterCellAligned}"
+                    Binding="{Binding DateOfRead , StringFormat=yyyy/MM/dd}"
+                    Header="تاريخ القراءة" />
+
+                <DataGridTextColumn
+                    x:Name="CustomerNameColumn"
+                    Width="250"
+                    CellStyle="{StaticResource LeftCellAligned}"
+                    Binding="{Binding CustomerName}"
+                    Header="الزبون" />
+
+                <DataGridTextColumn
+                    x:Name="TheLastReadColumn"
+                    Width="100"
+                    CellStyle="{StaticResource CenterCellAligned}"
+                    Binding="{Binding LastRead}"
+                    Header="القراءة السابقة" />
+
+
+                <DataGridTextColumn
+                    x:Name="TheReadColumn"
+                    Width="100"
+                    CellStyle="{StaticResource CenterCellAligned}"
+                    Binding="{Binding TheRead}"
+                    Header="القراءة" />
+
+
+                <DataGridTextColumn
+                    x:Name="NoteColumn"
+                    Width="*"
+                    CellStyle="{StaticResource CenterCellAligned}"
+                    Binding="{Binding Note}"
+                    Header="ملاحظات" />
+
+                
+            </DataGrid.Columns>
+
+
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource NameToBrushConverter }">
+                                <Binding Path="LastRead" />
+                                <Binding Path="TheRead" />
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.RowStyle>
+
+        </DataGrid>
+    </Grid>
+
+</mah:MetroWindow>

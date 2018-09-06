@@ -92,11 +92,16 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BasicClass.cs" />
+    <Compile Include="Converter\NameToBrushConverter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\PageCounterRead.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PageCounterReadList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -128,6 +133,9 @@
   <ItemGroup>
     <Compile Include="Pages\PageCounterRead.xaml.cs">
       <DependentUpon>PageCounterRead.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageCounterReadList.xaml.cs">
+      <DependentUpon>PageCounterReadList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PageCustomer.xaml.cs">
       <DependentUpon>PageCustomer.xaml</DependentUpon>

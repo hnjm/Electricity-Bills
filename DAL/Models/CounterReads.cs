@@ -11,6 +11,6 @@ namespace DAL.Models
         public long? TheRead { get; set; }
         public string Note { get; set; }
 
-        public virtual Customer Customer { get; set; }
+        public Customer Customer { get; set; }
     }
 }
