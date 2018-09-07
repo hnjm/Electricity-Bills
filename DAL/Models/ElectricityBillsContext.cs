@@ -14,12 +14,12 @@ namespace DAL.Models
         {
         }
 
-        public  DbSet<CounterReads> CounterReads { get; set; }
-        public  DbSet<Customer> Customer { get; set; }
-        public  DbSet<CustomerBills> CustomerBills { get; set; }
-        public  DbSet<Line> Line { get; set; }
-        public  DbSet<Payment> Payment { get; set; }
-        public  DbSet<User> User { get; set; }
+        public virtual DbSet<CounterReads> CounterReads { get; set; }
+        public virtual DbSet<Customer> Customer { get; set; }
+        public virtual DbSet<CustomerBills> CustomerBills { get; set; }
+        public virtual DbSet<Line> Line { get; set; }
+        public virtual DbSet<Payment> Payment { get; set; }
+        public virtual DbSet<User> User { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

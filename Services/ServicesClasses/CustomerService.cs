@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using DAL.Models;
@@ -11,8 +10,8 @@ namespace Services.ServicesClasses
 {
     public class CustomerService : BaseNotifyPropertyChanged
     {
-        public readonly IGenericRepository<Customer> CustomerRepository;
         private readonly CounterReadServices _counterReadServices;
+        public readonly IGenericRepository<Customer> CustomerRepository;
 
         public CustomerService()
         {
@@ -27,24 +26,23 @@ namespace Services.ServicesClasses
 
         public async Task PopulateDataGrid(DataGrid dgv, string customerName)
         {
-            var result = CustomerRepository
-                .GetAll(x => x.CustomerName.Contains(customerName))
-                .Include(x => x.Line);
-              
-            dgv.ItemsSource = await result.Select(x => new VMCustomer()
-            {
-                Id = x.Id,
-                LineId = x.LineId,
-                CustomerName = x.CustomerName,
-                CustomerMobile = x.CustomerMobile,
-                CounterNumber = x.CounterNumber,
-                LineName = x.Line.LineName,
-                MinimumAmount = x.MinimumAmount,
-                CustomerStatue = x.CustomerStatue,
-                LastRead = _counterReadServices.GetLastCustomerCounterRead(x.Id , null),
-                LastBalance = x.LastBalance
-            }).ToListAsync();
-        }
+            var result = await CustomerRepository
+                .GetAll(x => x.CustomerName.Contains(customerName), null, customer => customer.Line)
+                .Select( x => new VMCustomer
+                {
+                    Id = x.Id,
+                    LineId = x.LineId,
+                    CustomerName = x.CustomerName,
+                    CustomerMobile = x.CustomerMobile,
+                    CounterNumber = x.CounterNumber,
+                    LineName = x.Line.LineName,
+                    MinimumAmount = x.MinimumAmount,
+                    CustomerStatue = x.CustomerStatue,
+                    LastRead =  _counterReadServices.GetLastCustomerCounterRead(x.Id, null),
+                    LastBalance = x.LastBalance
+                }).ToListAsync();
 
+            dgv.ItemsSource = result;
+        }
     }
 }

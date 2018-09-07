@@ -13,7 +13,7 @@ namespace ElectricityBills.Pages
     /// </summary>
     public partial class PageCounterRead
     {
-        private readonly CounterReadServices _counterReadServices;
+        private CounterReadServices _counterReadServices;
         private readonly CustomerService _customerService;
 
         public PageCounterRead()
@@ -59,7 +59,7 @@ namespace ElectricityBills.Pages
                 return;
             }
 
-            using (_counterReadServices)
+            using (_counterReadServices = new CounterReadServices())
             {
                 await _counterReadServices.CounterReadsRepository.AddRangAsync(list);
                 await _counterReadServices.CounterReadsRepository.SaveAsync();
@@ -72,7 +72,7 @@ namespace ElectricityBills.Pages
             if (!char.IsDigit(e.Text, e.Text.Length - 1) && e.Text != ".") e.Handled = true;
         }
 
-        private void TxtRead_OnLostFocus(object sender, RoutedEventArgs e)
+        private  void TxtRead_OnLostFocus(object sender, RoutedEventArgs e)
         {
             var item = CounterReadsDataGrid.CurrentItem as CounterReads;
 
@@ -83,6 +83,7 @@ namespace ElectricityBills.Pages
                 var lastrec = _counterReadServices.GetLastCustomerCounterRead((int) item.CustomerId, null);
 
                 if (!(item?.TheRead <= lastrec)) return;
+
                 BasicClass.Notifier.ShowError("تحقق من قراءة العداد");
             }
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace ElectricityBills.Pages
     /// </summary>
     public partial class PageCounterReadList
     {
-        private readonly CounterReadServices _counterReadServices;
+        private CounterReadServices _counterReadServices;
         public PageCounterReadList()
         {
             InitializeComponent();
@@ -29,15 +30,27 @@ namespace ElectricityBills.Pages
 
         private async void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            await PopulateDataGrid();
+            PBar.Visibility = Visibility.Visible;
+            await this.ShowOverlayAsync();
+            await PopulateListDataGrid();
+            await this.HideOverlayAsync();
+            PBar.Visibility = Visibility.Collapsed;
+
+
         }
 
-        private async Task PopulateDataGrid()
+        private async Task PopulateListDataGrid()
         {
-            using (_counterReadServices)
+            //var timer = new Stopwatch();
+            //timer.Start();
+            using (_counterReadServices = new CounterReadServices())
             {
                 await _counterReadServices.PopulateReadsListDataGrid(CounterReadsDataGrid);
             }
+            //timer.Stop();
+            //MessageBox.Show("Time Elapsed was :  "+ timer.Elapsed.Milliseconds.ToString()+"  MS"+"\n"+"Number Of Records is : "+CounterReadsDataGrid.Items.Count);
         }
+
+        
     }
 }

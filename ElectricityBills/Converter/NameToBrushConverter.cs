@@ -9,8 +9,8 @@ namespace ElectricityBills.Converter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            var value1 = System.Convert.ToInt32(values[0]);
-            var value2 = System.Convert.ToInt32(values[1]);
+            var value1 = System.Convert.ToInt64(values[0]);
+            var value2 = System.Convert.ToInt64(values[1]);
 
             return value1 >= value2 ? Brushes.Red : null;
         }

@@ -17,7 +17,7 @@
     Loaded="MetroWindow_Loaded"
     Title="قراءات المشتركين">
     <mah:MetroWindow.DataContext>
-        <models:CounterReads/>
+        <models:CounterReads />
     </mah:MetroWindow.DataContext>
 
     <Window.Resources>
@@ -25,11 +25,28 @@
     </Window.Resources>
 
     <Grid>
+
+        <ProgressBar
+            Style="{StaticResource MaterialDesignCircularProgressBar}"
+            Name="PBar"
+            Visibility="Collapsed"
+            Value="0"
+            Width="300"
+            Height="300"
+            IsIndeterminate="True" >
+
+        </ProgressBar>
+
+
         <DataGrid
             x:Name="CounterReadsDataGrid"
+            HorizontalScrollBarVisibility="Auto"
+            VerticalScrollBarVisibility="Auto"
+            VerticalAlignment="Top"
             AutoGenerateColumns="False"
             EnableRowVirtualization="True"
             ItemsSource="{Binding}"
+            CanUserAddRows="False"
             RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
 
@@ -82,7 +99,7 @@
                     Binding="{Binding Note}"
                     Header="ملاحظات" />
 
-                
+
             </DataGrid.Columns>
 
 
@@ -100,6 +117,8 @@
             </DataGrid.RowStyle>
 
         </DataGrid>
+
+
     </Grid>
 
 </mah:MetroWindow>

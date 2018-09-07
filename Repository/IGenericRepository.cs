@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public interface IGenericRepository<T>
+    public interface IGenericRepository<T> : IDisposable
     {
         T Add(T t);
         Task<T> AddAsync(T t);
