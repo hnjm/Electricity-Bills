@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DAL.Models;
 using Services.ServicesClasses;
 
 namespace ElectricityBills.Pages
@@ -51,6 +52,18 @@ namespace ElectricityBills.Pages
             //MessageBox.Show("Time Elapsed was :  "+ timer.Elapsed.Milliseconds.ToString()+"  MS"+"\n"+"Number Of Records is : "+CounterReadsDataGrid.Items.Count);
         }
 
-        
+
+        private async void BtnSave_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (!(CounterReadsDataGrid.SelectedItem is CounterReads item)) return;
+
+            using (_counterReadServices = new CounterReadServices())
+            {
+                await _counterReadServices.CounterReadsRepository.UpdateAsync(item, item.Id);
+                await _counterReadServices.CounterReadsRepository.SaveAsync();
+
+                
+            }
+        }
     }
 }

@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:DAL.Models;assembly=DAL"
     xmlns:converter="clr-namespace:ElectricityBills.Converter"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     Width="800"
     Height="450"
     WindowState="Maximized"
@@ -47,6 +48,9 @@
             EnableRowVirtualization="True"
             ItemsSource="{Binding}"
             CanUserAddRows="False"
+            GridLinesVisibility="All"
+            HorizontalGridLinesBrush="White"
+            VerticalGridLinesBrush="White"
             RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
 
@@ -79,8 +83,9 @@
                 <DataGridTextColumn
                     x:Name="TheLastReadColumn"
                     Width="100"
+                    IsReadOnly="True"
                     CellStyle="{StaticResource CenterCellAligned}"
-                    Binding="{Binding LastRead}"
+                    Binding="{Binding LastRead }"
                     Header="القراءة السابقة" />
 
 
@@ -88,8 +93,8 @@
                     x:Name="TheReadColumn"
                     Width="100"
                     CellStyle="{StaticResource CenterCellAligned}"
-                    Binding="{Binding TheRead}"
-                    Header="القراءة" />
+                    Binding="{Binding TheRead , NotifyOnSourceUpdated=True , UpdateSourceTrigger=PropertyChanged , NotifyOnTargetUpdated=True}"
+                    Header=" القراءة الحالية" />
 
 
                 <DataGridTextColumn
@@ -99,6 +104,25 @@
                     Binding="{Binding Note}"
                     Header="ملاحظات" />
 
+                <DataGridTemplateColumn Width="50" CellStyle="{StaticResource CenterCellAligned}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                                Width="30"
+                                Height="30"
+                                VerticalAlignment="Center"
+                                Click="BtnSave_OnClick"
+                                Name="BtnSave"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                ToolTip="حفظ">
+                                <materialDesign:PackIcon
+                                    Width="20"
+                                    Height="20"
+                                    Kind="ContentSave" />
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
             </DataGrid.Columns>
 
