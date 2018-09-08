@@ -114,6 +114,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\PageCustomerBillRegister.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\PageLine.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -144,6 +148,9 @@
     </Compile>
     <Compile Include="Pages\PageCustomer.xaml.cs">
       <DependentUpon>PageCustomer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageCustomerBillRegister.xaml.cs">
+      <DependentUpon>PageCustomerBillRegister.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PageLine.xaml.cs">
       <DependentUpon>PageLine.xaml</DependentUpon>

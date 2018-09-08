@@ -37,6 +37,7 @@
       <HintPath>..\packages\PropertyChanged.Fody.2.5.9\lib\net452\PropertyChanged.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -49,6 +50,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VMCounterReads.cs" />
     <Compile Include="VMCustomer.cs" />
+    <Compile Include="VMCustomerBill.cs" />
     <Compile Include="VMLine.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,18 @@
+﻿<mah:MetroWindow
+    x:Class="ElectricityBills.Pages.PageCustomerBillRegister"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ElectricityBills.Pages"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="800"
+    Height="800"
+    mc:Ignorable="d"
+    Title="إصدار فواتير المشتركين">
+
+    <Grid>
+
+    </Grid>
+
+</mah:MetroWindow>

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using DAL.Models;
+using Microsoft.EntityFrameworkCore;
+using Repository;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using DAL.Models;
-using Microsoft.EntityFrameworkCore;
-using Repository;
 using ViewModel;
 
 namespace Services.ServicesClasses
@@ -67,13 +66,13 @@ namespace Services.ServicesClasses
         }
 
 
-        public async Task PopulateReadsListDataGrid(DataGrid dgv)
+        public async Task PopulateReadsListDataGrid(DataGrid dgv, string customerName , DateTime? dateFrom, DateTime? dateTo)
         {
             using (CounterReadsRepository = new GenericRepository<CounterReads>(new ElectricityBillsContext()))
             {
-                var list = await
+                var list = 
                     CounterReadsRepository
-                        .GetAll(null, reads => reads.OrderBy(x => x.DateOfRead), reads => reads.Customer)
+                        .GetAll(x => x.Customer.CustomerName.Contains(customerName), reads => reads.OrderBy(x => x.DateOfRead), reads => reads.Customer)
                         .Select(x =>
                             new VMCounterReads
                             {
@@ -84,10 +83,14 @@ namespace Services.ServicesClasses
                                 TheRead = x.TheRead,
                                 LastRead = GetLastCustomerCounterRead((int)x.CustomerId, x.DateOfRead),
                                 Note = x.Note
-                            }).ToListAsync();
+                            });
 
-                dgv.ItemsSource = list;
+                if (dateFrom != null && dateTo != null)
+                {
+                    list = list.Where(x => x.DateOfRead >= dateFrom && x.DateOfRead <= dateTo);
+                }
 
+                dgv.ItemsSource = await list.ToListAsync();
             }
         }
     }

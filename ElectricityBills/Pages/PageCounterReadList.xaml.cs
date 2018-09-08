@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using DAL.Models;
+using Services.ServicesClasses;
+using System;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using DAL.Models;
-using Services.ServicesClasses;
 
 namespace ElectricityBills.Pages
 {
@@ -31,27 +22,28 @@ namespace ElectricityBills.Pages
 
         private async void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            PBar.Visibility = Visibility.Visible;
+            //PBar.Visibility = Visibility.Visible;
             await this.ShowOverlayAsync();
             await PopulateListDataGrid();
             await this.HideOverlayAsync();
-            PBar.Visibility = Visibility.Collapsed;
-
-
+            //PBar.Visibility = Visibility.Collapsed;
         }
 
         private async Task PopulateListDataGrid()
         {
-            //var timer = new Stopwatch();
-            //timer.Start();
+            var dateFrom = !DateFrom.IsEnabled
+                ? null
+                : DateFrom.SelectedDate;
+
+            var dateTo = !DateTo.IsEnabled
+                ? null
+                : DateTo.SelectedDate;
+
             using (_counterReadServices = new CounterReadServices())
             {
-                await _counterReadServices.PopulateReadsListDataGrid(CounterReadsDataGrid);
+                await _counterReadServices.PopulateReadsListDataGrid(CounterReadsDataGrid, TxtCustomerSearch.Text , dateFrom , dateTo);
             }
-            //timer.Stop();
-            //MessageBox.Show("Time Elapsed was :  "+ timer.Elapsed.Milliseconds.ToString()+"  MS"+"\n"+"Number Of Records is : "+CounterReadsDataGrid.Items.Count);
         }
-
 
         private async void BtnSave_OnClick(object sender, RoutedEventArgs e)
         {
@@ -61,9 +53,27 @@ namespace ElectricityBills.Pages
             {
                 await _counterReadServices.CounterReadsRepository.UpdateAsync(item, item.Id);
                 await _counterReadServices.CounterReadsRepository.SaveAsync();
-
-                
             }
+        }
+
+        private async void TxtCustomerSearch_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            await PopulateListDataGrid();
+        }
+
+        private async void ToggleButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            await PopulateListDataGrid();
+        }
+        private async Task FilterData()
+        {
+            if (DateFrom.SelectedDate == null && DateTo.SelectedDate == null) return;
+            await PopulateListDataGrid();
+        }
+
+        private async void CheckedAndUnChecked(object sender, RoutedEventArgs e)
+        {
+            await FilterData();
         }
     }
 }

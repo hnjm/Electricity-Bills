@@ -25,9 +25,51 @@
         <converter:NameToBrushConverter x:Key="NameToBrushConverter" />
     </Window.Resources>
 
-    <Grid>
+    <DockPanel>
 
-        <ProgressBar
+        <materialDesign:Card
+            Height="100"
+            Margin="10"
+            VerticalAlignment="Top"
+            DockPanel.Dock="Top">
+            <StackPanel
+                Margin="10"
+                Orientation="Horizontal">
+                <TextBox
+                    x:Name="TxtCustomerSearch"
+                    Width="250"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Left"
+                    materialDesign:HintAssist.Hint="البحث بإسم الزبون ........"
+                    materialDesign:HintAssist.IsFloating="True"
+                    TextChanged="TxtCustomerSearch_OnTextChanged" />
+
+                <ToggleButton Name="ToggleButton"
+                              Margin="20 0 0 0"
+                              Click="CheckedAndUnChecked"
+                              VerticalAlignment="Center"/>
+
+                <DatePicker Name="DateFrom" 
+                            VerticalAlignment="Center"
+                            materialDesign:HintAssist.Hint="الفترة من : "
+                            materialDesign:HintAssist.IsFloating="True"
+                            Margin="20 0 0 0"
+                            IsEnabled="{Binding ElementName= ToggleButton , Path=IsChecked}"
+                            Width="120"/>
+
+                <DatePicker Name="DateTo" 
+                            VerticalAlignment="Center"
+                            materialDesign:HintAssist.Hint="الفترة إلى : "
+                            materialDesign:HintAssist.IsFloating="True"
+                            Margin="20 0 0 0"
+                            LostFocus="ToggleButton_OnClick"
+                            IsEnabled="{Binding ElementName= ToggleButton , Path=IsChecked}"
+                            Width="120"/>
+
+            </StackPanel>
+        </materialDesign:Card>
+
+        <!--<ProgressBar
             Style="{StaticResource MaterialDesignCircularProgressBar}"
             Name="PBar"
             Visibility="Collapsed"
@@ -36,8 +78,7 @@
             Height="300"
             IsIndeterminate="True" >
 
-        </ProgressBar>
-
+        </ProgressBar>-->
 
         <DataGrid
             x:Name="CounterReadsDataGrid"
@@ -76,6 +117,7 @@
                 <DataGridTextColumn
                     x:Name="CustomerNameColumn"
                     Width="250"
+                    IsReadOnly="True"
                     CellStyle="{StaticResource LeftCellAligned}"
                     Binding="{Binding CustomerName}"
                     Header="الزبون" />
@@ -95,6 +137,15 @@
                     CellStyle="{StaticResource CenterCellAligned}"
                     Binding="{Binding TheRead , NotifyOnSourceUpdated=True , UpdateSourceTrigger=PropertyChanged , NotifyOnTargetUpdated=True}"
                     Header=" القراءة الحالية" />
+
+                <DataGridTextColumn
+                    x:Name="Amount"
+                    Width="100"
+                    IsReadOnly="True"
+                    CellStyle="{StaticResource CenterCellAligned}"
+                    Binding="{Binding Amount , NotifyOnSourceUpdated=True , UpdateSourceTrigger=PropertyChanged , NotifyOnTargetUpdated=True}"
+                    Header=" الاستهلاك" />
+
 
 
                 <DataGridTextColumn
@@ -142,7 +193,6 @@
 
         </DataGrid>
 
-
-    </Grid>
+    </DockPanel>
 
 </mah:MetroWindow>

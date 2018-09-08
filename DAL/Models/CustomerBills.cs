@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL.Models
 {
@@ -21,7 +22,12 @@ namespace DAL.Models
         public decimal? BillAmount { get; set; }
         public string Notes { get; set; }
 
-        public  Customer Customer { get; set; }
+
+        [NotMapped]
+        public virtual long? Amount => CurrentRead - LastRead;
+
+
+        public Customer Customer { get; set; }
         public  Line Line { get; set; }
     }
 }
