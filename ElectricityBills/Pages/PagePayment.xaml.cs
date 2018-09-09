@@ -2,13 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Media;
+using System.Text;
 using System.Threading.Tasks;
-using Services.ServicesClasses;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using DAL.Models;
+using MahApps.Metro.Controls.Dialogs;
+using Services.ServicesClasses;
 using ToastNotifications.Messages;
+using ViewModel;
 
 namespace ElectricityBills.Pages
 {
@@ -17,8 +25,8 @@ namespace ElectricityBills.Pages
     /// </summary>
     public partial class PagePayment
     {
-        private CustomerService _customerService;
-        private PaymentServices _paymentServices;
+        private readonly CustomerService _customerService;
+        private readonly PaymentServices _paymentServices;
         public PagePayment()
         {
             InitializeComponent();
@@ -30,7 +38,7 @@ namespace ElectricityBills.Pages
             var tasks = new List<Task>()
             {
                 PopulateCustomerComboBox(),
-                PopulateGataGrid()
+                PopulateDataGrid()
             };
 
             await Task.WhenAll(tasks);
@@ -43,7 +51,7 @@ namespace ElectricityBills.Pages
             }
         }
 
-        private async Task PopulateGataGrid()
+        private async Task PopulateDataGrid()
         {
             using (_paymentServices)
             {
@@ -71,9 +79,25 @@ namespace ElectricityBills.Pages
             await HideOverlayAsync();
         }
 
-        private void BtnDelet_OnClick(object sender, RoutedEventArgs e)
+        private async void BtnDelet_OnClick(object sender, RoutedEventArgs e)
         {
+            if (!(StackItems.DataContext is Payment item)) return;
 
+            var massage = await BasicClass.ShowBasicMessage(this,
+                "تنبيه",
+                "هل ترغب في حذف الاشتراك ؟ ",
+                MessageDialogStyle.AffirmativeAndNegative);
+            if (massage != MessageDialogResult.Affirmative) return;
+
+            using (_paymentServices)
+            {
+                _paymentServices.PaymentRepository.Delete(item);
+                await _paymentServices.PaymentRepository.SaveAsync();
+            }
+
+            StackItems.DataContext = new Payment();
+            BtnNew_OnClick(sender,e);
+            await PopulateDataGrid();
         }
 
         private async void BtnSave_OnClick(object sender, RoutedEventArgs e)
@@ -97,6 +121,17 @@ namespace ElectricityBills.Pages
                         return;
                     }
 
+                    var checkedSanad = await _paymentServices.CheckSanad(item.Sanad);
+
+                    if (checkedSanad)
+                    {
+                        var massage = await BasicClass.ShowBasicMessage(this,
+                            "تنبيه",
+                            "رقم السند مسجل مسبقاً ... هل ترغب بالاستمرار ؟ ",
+                            MessageDialogStyle.AffirmativeAndNegative);
+                        if (massage != MessageDialogResult.Affirmative) return;
+                    }
+
                     await _paymentServices.PaymentRepository.AddAsync(item);
                     await _paymentServices.PaymentRepository.SaveAsync();
                 }
@@ -107,19 +142,24 @@ namespace ElectricityBills.Pages
                 }
 
                 SystemSounds.Exclamation.Play();
-                await PopulateGataGrid();
+                BtnNew_OnClick(sender , e);
+                await PopulateDataGrid();
             }
         }
 
         private void BtnNew_OnClick(object sender, RoutedEventArgs e)
         {
-
+            StackItems.DataContext = new VMPayment();
         }
 
-        private void TxtCustomerSearch_OnTextChanged(object sender, TextChangedEventArgs e)
+        private async void TxtCustomerSearch_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-
+            using (_paymentServices)
+            {
+                await PopulateDataGrid();
+            }
         }
 
+       
     }
 }

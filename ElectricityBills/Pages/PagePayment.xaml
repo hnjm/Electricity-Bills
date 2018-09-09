@@ -1,25 +1,28 @@
 ﻿<mah:MetroWindow
-    x:Class="ElectricityBills.Pages.PagePayment"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ElectricityBills.Pages"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="clr-namespace:DAL.Models;assembly=DAL"
     xmlns:viewModel="clr-namespace:ViewModel;assembly=ViewModel"
+    xmlns:models="clr-namespace:DAL.Models;assembly=DAL"
+    x:Class="ElectricityBills.Pages.PagePayment"
     Width="800"
-    Height="650"
+    Height="450"
     mc:Ignorable="d"
     Loaded="PagePayment_OnLoaded"
     Style="{StaticResource BasicWindowStyle}"
-    Title="الدفعات"
+    Title="دفعات المشتركين"
     WindowStartupLocation="CenterScreen"
     WindowState="Maximized">
 
+
     <mah:MetroWindow.DataContext>
-        <viewModel:VMPayment />
+        <viewModel:VMPayment/>
     </mah:MetroWindow.DataContext>
+
 
     <DockPanel>
         <!--القائمة العلوية-->
@@ -85,9 +88,8 @@
                 </Button>
             </StackPanel>
         </materialDesign:Card>
-        <!--القائمة اليمنى-->
-        <GroupBox Margin="0 10"
-                  Header="بيانات الزبون">
+        <GroupBox Margin="0 10" Header="بيانات الزبون">
+
             <StackPanel
                 x:Name="StackItems"
                 Width="250"
@@ -119,36 +121,31 @@
 
                 <DatePicker
                     x:Name="DateOfPayed"
-                    Margin="0 10 0 0"
                     Width="200"
-                    SelectedDate="{Binding DateOfPay ,StringFormat=yyyy/MM/dd}"
+                    Margin="0 10 0 0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     materialDesign:HintAssist.Hint="تاريخ الدفعة"
                     materialDesign:HintAssist.IsFloating="True"
-                    Text="{Binding DateOfPay}" />
-
+                    SelectedDate="{Binding DateOfPay , StringFormat= yyyy/MM/dd}"/>
                 <TextBox
                     x:Name="TxtPayment"
-                    Margin="0 10 0 0"
                     Width="200"
-                    PreviewTextInput="NumericInput"
+                    Margin="0 10 0 0"
                     HorizontalAlignment="Left"
                     materialDesign:HintAssist.Hint="الدفعة"
                     materialDesign:HintAssist.IsFloating="True"
+                    PreviewTextInput="NumericInput"
                     Text="{Binding PaymentAmount}" />
-
                 <TextBox
                     x:Name="TxtSanad"
-                    Margin="0 10 0 0"
                     Width="200"
-                    PreviewTextInput="NumericInput"
+                    Margin="0 10 0 0"
                     HorizontalAlignment="Left"
                     materialDesign:HintAssist.Hint="السند"
                     materialDesign:HintAssist.IsFloating="True"
+                    PreviewTextInput="NumericInput"
                     Text="{Binding Sanad}" />
-
-
                 <TextBox
                     x:Name="TxtNote"
                     Margin="0 10 0 0"
@@ -157,12 +154,9 @@
                     Text="{Binding Note}" />
             </StackPanel>
         </GroupBox>
-
-
         <DataGrid
             x:Name="PaymentDataGrid"
             Margin="10"
-            IsSynchronizedWithCurrentItem="False"
             AutoGenerateColumns="False"
             BorderBrush="Azure"
             BorderThickness="1"
@@ -190,7 +184,7 @@
                     Header="إسم الزبون" />
                 <DataGridTextColumn
                     Width="150"
-                    Binding="{Binding DateOfPay , StringFormat= yyyy/MM/dd }"
+                    Binding="{Binding DateOfPay, StringFormat=yyyy/MM/dd}"
                     CellStyle="{StaticResource CenterCellAligned}"
                     Header="التاريخ" />
                 <DataGridTextColumn

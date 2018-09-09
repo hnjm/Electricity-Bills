@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using Castle.Components.DictionaryAdapter;
 
 namespace DAL.Models
 {
@@ -6,6 +8,7 @@ namespace DAL.Models
     {
         public int Id { get; set; }
         public int? CustomerId { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{yyyy/MM/dd}")]
         public DateTime? DateOfPay { get; set; }
         public decimal? PaymentAmount { get; set; }
         public int? Sanad { get; set; }
