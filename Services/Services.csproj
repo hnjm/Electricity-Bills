@@ -118,6 +118,7 @@
   <ItemGroup>
     <Compile Include="BaseNotifyPropertyChanged.cs" />
     <Compile Include="ServicesClasses\CounterReadServices.cs" />
+    <Compile Include="ServicesClasses\CustomerBillServices.cs" />
     <Compile Include="ServicesClasses\CustomerService.cs" />
     <Compile Include="ServicesClasses\LineServices.cs" />
     <Compile Include="ServicesClasses\LoginServices.cs" />

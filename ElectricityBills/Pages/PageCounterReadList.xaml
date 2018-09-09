@@ -141,7 +141,7 @@
                 <DataGridTextColumn
                     x:Name="Amount"
                     Width="100"
-                    IsReadOnly="True"
+                    IsReadOnly="False"
                     CellStyle="{StaticResource CenterCellAligned}"
                     Binding="{Binding Amount , NotifyOnSourceUpdated=True , UpdateSourceTrigger=PropertyChanged , NotifyOnTargetUpdated=True}"
                     Header=" الاستهلاك" />

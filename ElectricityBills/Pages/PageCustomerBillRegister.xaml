@@ -1,18 +1,252 @@
 ﻿<mah:MetroWindow
-    x:Class="ElectricityBills.Pages.PageCustomerBillRegister"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ElectricityBills.Pages"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:viewModel="clr-namespace:ViewModel;assembly=ViewModel"
+    x:Class="ElectricityBills.Pages.PageCustomerBillRegister"
     Width="800"
     Height="800"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Maximized"
     mc:Ignorable="d"
+    Style="{StaticResource BasicWindowStyle}"
     Title="إصدار فواتير المشتركين">
 
-    <Grid>
+    <mah:MetroWindow.DataContext>
+        <viewModel:VMCustomerBill/>
+    </mah:MetroWindow.DataContext>
 
-    </Grid>
+    <DockPanel>
+
+        <materialDesign:Card
+            Height="100"
+            Margin="10"
+            VerticalAlignment="Top"
+            DockPanel.Dock="Top">
+            <StackPanel
+                Margin="10"
+                Orientation="Horizontal">
+                <TextBox
+                    x:Name="TxtCustomerSearch"
+                    Width="250"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Left"
+                    materialDesign:HintAssist.Hint="البحث بإسم الزبون ........"
+                    materialDesign:HintAssist.IsFloating="True"
+                    TextChanged="TxtCustomerSearch_OnTextChanged" />
+
+                <ToggleButton x:Name="ToggleButton"
+                              Margin="20 0 0 0"
+                              Click="CheckedAndUnChecked"
+                              VerticalAlignment="Center"/>
+
+                <DatePicker x:Name="DateFrom" 
+                            VerticalAlignment="Center"
+                            materialDesign:HintAssist.Hint="الفترة من : "
+                            materialDesign:HintAssist.IsFloating="True"
+                            Margin="20 0 0 0"
+                            IsEnabled="{Binding IsChecked, ElementName=ToggleButton}"
+                            Width="120"/>
+
+                <DatePicker x:Name="DateTo" 
+                            VerticalAlignment="Center"
+                            materialDesign:HintAssist.Hint="الفترة إلى : "
+                            materialDesign:HintAssist.IsFloating="True"
+                            Margin="20 0 0 0"
+                            LostFocus="ToggleButton_OnClick"
+                            IsEnabled="{Binding IsChecked, ElementName=ToggleButton}"
+                            Width="120"/>
+
+            </StackPanel>
+        </materialDesign:Card>
+
+        <!--<ProgressBar
+            Style="{StaticResource MaterialDesignCircularProgressBar}"
+            Name="PBar"
+            Visibility="Collapsed"
+            Value="0"
+            Width="300"
+            Height="300"
+            IsIndeterminate="True" >
+
+        </ProgressBar>-->
+
+        <DataGrid
+            x:Name="CustomersBillsDataGrid"
+            HorizontalScrollBarVisibility="Auto"
+            VerticalScrollBarVisibility="Auto"
+            VerticalAlignment="Top"
+            AutoGenerateColumns="False"
+            EnableRowVirtualization="True"
+            ItemsSource="{Binding}"
+            CanUserAddRows="False"
+            GridLinesVisibility="All"
+            HorizontalGridLinesBrush="White"
+            VerticalGridLinesBrush="White"
+            RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+
+                <DataGridTextColumn
+                    x:Name="IdColumn"
+                    MaxWidth="0"
+                    Binding="{Binding Id}"
+                    Header="Id" />
+
+                <DataGridTextColumn
+                    x:Name="CustomerIdColumn"
+                    MaxWidth="0"
+                    Binding="{Binding CustomerId}"
+                    Header="Customer Id" />
+
+                <DataGridTextColumn
+                    x:Name="LineIdColumn"
+                    MaxWidth="0"
+                    Binding="{Binding LineId}"
+                    Header="Customer Id" />
+
+                <DataGridTextColumn
+                    x:Name="DateOfReadColumn"
+                    Width="100"
+                    CellStyle="{StaticResource CenterCellAligned}"
+                    Binding="{Binding DateOfLastRead, StringFormat=yyyy/MM/dd}"
+                    Header="تاريخ آخر قراءة" />
+
+                <DataGridTextColumn
+                    x:Name="CustomerNameColumn"
+                    Width="250"
+                    IsReadOnly="True"
+                    CellStyle="{StaticResource LeftCellAligned}"
+                    Binding="{Binding CustomerName}"
+                    Header="الزبون" />
+
+                <DataGridTextColumn
+                    x:Name="BillPeriodColumn"
+                    Width="100"
+                    IsReadOnly="True"
+                    CellStyle="{StaticResource CenterCellAligned}"
+                    Binding="{Binding PeriodOfBill}"
+                    Header="دورة الفاتورة" />
+
+                <DataGridTextColumn
+                    x:Name="MinimumAmountReadColumn"
+                    Width="100"
+                    IsReadOnly="True"
+                    CellStyle="{StaticResource CenterCellAligned}"
+                    Binding="{Binding MinimumAmount}"
+                    Header="الحد الادنى" />
+                
+                <DataGridTextColumn
+                    x:Name="TheLastReadColumn"
+                    Width="100"
+                    IsReadOnly="True"
+                    CellStyle="{StaticResource CenterCellAligned}"
+                    Binding="{Binding LastRead}"
+                    Header="القراءة السابقة" />
+
+                <DataGridTextColumn
+                    x:Name="CurrentReadColumn"
+                    Width="100"
+                    IsReadOnly="True"
+                    CellStyle="{StaticResource CenterCellAligned}"
+                    Binding="{Binding CurrentRead}"
+                    Header="القراءة الحالية" />
+
+
+                <DataGridTextColumn
+                    x:Name="AmountColumn"
+                    Width="100"
+                    CellStyle="{StaticResource CenterCellAligned}"
+                    Binding="{Binding Amount}"
+                    Header=" الاستهلاك" />
+
+                <DataGridTextColumn
+                    x:Name="UnitPriceColumn"
+                    Width="100"
+                    CellStyle="{StaticResource CenterCellAligned}"
+                    Binding="{Binding UnitPrice}"
+                    Header=" سعر الوحدة" />
+
+                <DataGridTextColumn
+                    x:Name="MaintenanceFeesColumn"
+                    Width="100"
+                    IsReadOnly="False"
+                    CellStyle="{StaticResource CenterCellAligned}"
+                    Binding="{Binding MaintenanceFees}"
+                    Header=" صيانة" />
+
+                <DataGridTextColumn
+                    x:Name="ServicesFeesColumn"
+                    Width="100"
+                    IsReadOnly="False"
+                    CellStyle="{StaticResource CenterCellAligned}"
+                    Binding="{Binding ServicesFees}"
+                    Header=" خدمات" />
+
+                <DataGridTextColumn
+                    x:Name="DiscountColumn"
+                    Width="100"
+                    IsReadOnly="False"
+                    CellStyle="{StaticResource CenterCellAligned}"
+                    Binding="{Binding Discount}"
+                    Header=" خصم" />
+
+                <DataGridTextColumn
+                    x:Name="BillAmountColumn"
+                    Width="100"
+                    IsReadOnly="False"
+                    CellStyle="{StaticResource CenterCellAligned}"
+                    Binding="{Binding BillAmount}"
+                    Header=" إجمالي الفاتورة" />
+
+                <DataGridTextColumn
+                    x:Name="NoteColumn"
+                    Width="*"
+                    CellStyle="{StaticResource CenterCellAligned}"
+                    Binding="{Binding Notes}"
+                    Header="ملاحظات" />
+
+                <DataGridTemplateColumn Width="50" CellStyle="{StaticResource CenterCellAligned}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                                Width="30"
+                                Height="30"
+                                VerticalAlignment="Center"
+                                Click="BtnSave_OnClick"
+                                x:Name="BtnSave"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                ToolTip="حفظ">
+                                <materialDesign:PackIcon
+                                    Width="20"
+                                    Height="20"
+                                    Kind="ContentSave" />
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+
+
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource NameToBrushConverter}">
+                                <Binding Path="LastRead" />
+                                <Binding Path="TheRead" />
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.RowStyle>
+
+        </DataGrid>
+
+    </DockPanel>
 
 </mah:MetroWindow>

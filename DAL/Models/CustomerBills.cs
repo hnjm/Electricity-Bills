@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL.Models
@@ -19,7 +18,6 @@ namespace DAL.Models
         public decimal? ServicesFees { get; set; }
         public decimal? LastBalance { get; set; }
         public decimal? Discount { get; set; }
-        public decimal? BillAmount { get; set; }
         public string Notes { get; set; }
 
 
@@ -27,7 +25,27 @@ namespace DAL.Models
         public virtual long? Amount => CurrentRead - LastRead;
 
 
+        public decimal? BillAmount
+        {
+            get
+            {
+                if (Amount <= MinimumAmount)
+                {
+                    return MinimumAmount * UnitPrice + MaintenanceFees + ServicesFees;
+                }
+
+                else
+                {
+                    return Amount * UnitPrice + MaintenanceFees + ServicesFees;
+                }
+            }
+
+            set => BillAmount = value;
+        }
+
+
+
         public Customer Customer { get; set; }
-        public  Line Line { get; set; }
+        public Line Line { get; set; }
     }
 }
