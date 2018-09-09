@@ -52,6 +52,7 @@
     <Compile Include="VMCustomer.cs" />
     <Compile Include="VMCustomerBill.cs" />
     <Compile Include="VMLine.cs" />
+    <Compile Include="VMPayment.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">

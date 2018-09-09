@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:ElectricityBills"
              xmlns:converter="clr-namespace:ElectricityBills.Converter"
-             StartupUri="Pages/PageCustomerBillRegister.xaml">
+             StartupUri="Pages/PagePayment.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
