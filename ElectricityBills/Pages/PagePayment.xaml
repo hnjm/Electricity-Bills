@@ -162,6 +162,7 @@
         <DataGrid
             x:Name="PaymentDataGrid"
             Margin="10"
+            IsSynchronizedWithCurrentItem="False"
             AutoGenerateColumns="False"
             BorderBrush="Azure"
             BorderThickness="1"

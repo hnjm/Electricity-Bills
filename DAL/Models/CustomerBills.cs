@@ -40,7 +40,10 @@ namespace DAL.Models
                 }
             }
 
-            set => BillAmount = value;
+            set
+            {
+                //
+            }
         }
 
 

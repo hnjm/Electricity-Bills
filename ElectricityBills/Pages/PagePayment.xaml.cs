@@ -63,9 +63,12 @@ namespace ElectricityBills.Pages
             if (!char.IsDigit(e.Text, e.Text.Length - 1) && e.Text != ".") e.Handled = true;
         }
 
-        private void BtnCustomerPage_OnClick(object sender, RoutedEventArgs e)
+        private async void BtnCustomerPage_OnClick(object sender, RoutedEventArgs e)
         {
-
+            await this.ShowOverlayAsync();
+            new PageCustomer().ShowDialog();
+            await PopulateCustomerComboBox();
+            await HideOverlayAsync();
         }
 
         private void BtnDelet_OnClick(object sender, RoutedEventArgs e)

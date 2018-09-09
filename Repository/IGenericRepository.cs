@@ -20,7 +20,6 @@ namespace Repository
         void DeleteById(int id);
         void DeleteRang(IEnumerable<T> entity);
         //Task<int> DeleteRangAsync(IEnumerable<T> entity);
-        void Dispose();
         ICollection<T> FindAll(Expression<Func<T, bool>> match);
         Task<ICollection<T>> FindAllAsync(Expression<Func<T, bool>> match);
         IQueryable<T> FindBy(Expression<Func<T, bool>> predicate);
