@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Castle.Components.DictionaryAdapter;
 
 namespace DAL.Models
 {
@@ -14,6 +13,6 @@ namespace DAL.Models
         public int? Sanad { get; set; }
         public string Note { get; set; }
 
-        public  Customer Customer { get; set; }
+        public Customer Customer { get; set; }
     }
 }

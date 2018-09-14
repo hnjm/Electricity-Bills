@@ -40,6 +40,29 @@
                     materialDesign:HintAssist.Hint="البحث بإسم الزبون ........"
                     materialDesign:HintAssist.IsFloating="True"
                     TextChanged="TxtCustomerSearch_OnTextChanged" />
+
+                <ToggleButton Name="ToggleButton"
+                              Margin="20 0 0 0"
+                              Click="ToggleButton_OnClick"
+                              VerticalAlignment="Center"/>
+
+                <DatePicker Name="DateFrom" 
+                            VerticalAlignment="Center"
+                            materialDesign:HintAssist.Hint="الفترة من : "
+                            materialDesign:HintAssist.IsFloating="True"
+                            Margin="20 0 0 0"
+                            IsEnabled="{Binding ElementName= ToggleButton , Path=IsChecked}"
+                            Width="120"/>
+
+                <DatePicker Name="DateTo" 
+                            VerticalAlignment="Center"
+                            materialDesign:HintAssist.Hint="الفترة إلى : "
+                            materialDesign:HintAssist.IsFloating="True"
+                            Margin="20 0 0 0"
+                            LostFocus="CheckedAndUnChecked"
+                            IsEnabled="{Binding ElementName= ToggleButton , Path=IsChecked}"
+                            Width="120"/>
+
             </StackPanel>
         </materialDesign:Card>
         <materialDesign:Card

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using ToastNotifications.Messages;
 
 namespace ElectricityBills.Pages
 {
@@ -68,6 +70,15 @@ namespace ElectricityBills.Pages
         private async Task FilterData()
         {
             if (DateFrom.SelectedDate == null && DateTo.SelectedDate == null) return;
+
+            var checkDates = BasicClass.CheckDates(DateFrom.SelectedDate, DateTo.SelectedDate);
+
+            if (checkDates)
+            {
+                BasicClass.Notifier.ShowInformation("الرجاء التأكد من صحة التواريخ المدخلة");
+                return;
+            }
+
             await PopulateListDataGrid();
         }
 
@@ -75,5 +86,6 @@ namespace ElectricityBills.Pages
         {
             await FilterData();
         }
+
     }
 }

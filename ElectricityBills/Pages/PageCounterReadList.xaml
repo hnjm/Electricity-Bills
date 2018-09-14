@@ -46,7 +46,7 @@
 
                 <ToggleButton Name="ToggleButton"
                               Margin="20 0 0 0"
-                              Click="CheckedAndUnChecked"
+                              Click="ToggleButton_OnClick"
                               VerticalAlignment="Center"/>
 
                 <DatePicker Name="DateFrom" 
@@ -62,7 +62,7 @@
                             materialDesign:HintAssist.Hint="الفترة إلى : "
                             materialDesign:HintAssist.IsFloating="True"
                             Margin="20 0 0 0"
-                            LostFocus="ToggleButton_OnClick"
+                            LostFocus="CheckedAndUnChecked"
                             IsEnabled="{Binding ElementName= ToggleButton , Path=IsChecked}"
                             Width="120"/>
 

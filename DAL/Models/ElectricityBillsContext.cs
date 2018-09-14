@@ -5,7 +5,7 @@ namespace DAL.Models
 {
     public partial class ElectricityBillsContext : DbContext
     {
-        public ElectricityBillsContext()
+        public ElectricityBillsContext():base()
         {
         }
 

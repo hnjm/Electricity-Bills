@@ -27,6 +27,7 @@ namespace ElectricityBills.Pages
     {
         private readonly CustomerService _customerService;
         private readonly PaymentServices _paymentServices;
+
         public PagePayment()
         {
             InitializeComponent();
@@ -53,9 +54,16 @@ namespace ElectricityBills.Pages
 
         private async Task PopulateDataGrid()
         {
+            var dateFrom = !DateFrom.IsEnabled
+                ? null
+                : DateFrom.SelectedDate;
+
+            var dateTo = !DateTo.IsEnabled
+                ? null
+                : DateTo.SelectedDate;
             using (_paymentServices)
             {
-                await _paymentServices.PopulateDataGrid(PaymentDataGrid, TxtCustomerSearch.Text, null, null);
+                await _paymentServices.PopulateDataGrid(PaymentDataGrid, TxtCustomerSearch.Text, dateFrom, dateTo);
             }
         }
         private void CustomerDataGrid_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -160,6 +168,24 @@ namespace ElectricityBills.Pages
             }
         }
 
-       
+        private async void CheckedAndUnChecked(object sender, RoutedEventArgs e)
+        {
+            if (DateFrom.SelectedDate == null && DateTo.SelectedDate == null) return;
+
+            var checkDates = BasicClass.CheckDates(DateFrom.SelectedDate, DateTo.SelectedDate);
+
+            if (checkDates)
+            {
+                BasicClass.Notifier.ShowInformation("الرجاء التأكد من صحة التواريخ المدخلة");
+                return;
+            }
+
+            await PopulateDataGrid();
+        }
+
+        private async void ToggleButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            await PopulateDataGrid();
+        }
     }
 }

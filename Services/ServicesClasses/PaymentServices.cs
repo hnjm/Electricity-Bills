@@ -44,5 +44,12 @@ namespace Services.ServicesClasses
 
             dgv.ItemsSource = list;
         }
+
+        public async Task<decimal?> GetTotalCustomerPayments(int? customerId)
+        {
+            return await PaymentRepository
+                .GetAll(x =>  x.CustomerId == customerId)
+                .SumAsync(x => x.PaymentAmount);
+        }
     }
 }
